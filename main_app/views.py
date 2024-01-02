@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from .models import Collection
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -12,6 +13,12 @@ def home(request):
 
 def about(request):
     return render(request, 'about.html')
+
+@login_required
+def collections_index(request):
+   collections = Collection.objects.filter(user=request.user)
+   return render(request, 'collections/index.html', {'collections': collections})
+
 
 def signup(request):
   error_message = ''
