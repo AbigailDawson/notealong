@@ -32,12 +32,12 @@
           </form>
           {% if user.is_authenticated %}
           <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{% url 'index' %}"><button class="btn">Collections</button></a>
+              <a class="nav-link" aria-current="page" href="{% url 'index' %}"><button class="btn btn-lg">Collections</button></a>
           </li>
           <li class="nav-item">
             <form action="{% url 'logout' %}" method="POST">
               {% csrf_token %}
-              <button class="btn" type="submit">Log Out</button>
+              <button class="btn btn-lg" type="submit">Log Out</button>
             </form>
           </li>
           {% else %}
