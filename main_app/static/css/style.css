@@ -36,8 +36,33 @@ h1, h2, h3, h4, h5 {
 
 /*  ====  USER  ====  */
 
-.user-container {
+.content-container {
   background-color: white;
   border-radius: 60px;
   height: 80vh;
+}
+
+.left-col,
+.right-col {
+  padding: 30px;
+}
+
+.middle-col {
+  padding: 20px;
+}
+
+.left-col {
+  border-right: 1px solid var(--grey);
+}
+
+.right-col {
+  border-left: 1px solid var(--grey);
+}
+
+.card-subtitle {
+  font-size: 12px;
+}
+
+.card-text {
+  font-size: 13px;
 }
