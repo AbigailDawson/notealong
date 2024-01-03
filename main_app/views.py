@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from .models import Collection, Note
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
@@ -67,6 +68,22 @@ class CollectionDelete(LoginRequiredMixin, DeleteView):
 class NoteCreate(LoginRequiredMixin, CreateView):
   model = Note
   fields = '__all__'
+
+  def get_success_url(self):
+    return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['all_collections'] = Collection.objects.filter(user=self.request.user)
+    context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
+    return context
+  
+  def form_valid(self, form):
+    collection = Collection.objects.get(id=self.kwargs['collection_id'])
+    content = form.cleaned_data.get('content')
+    new_note = Note.objects.create(content=content)
+    collection.notes.add(new_note)
+    return super().form_valid(form)
 
 class NoteUpdate(LoginRequiredMixin, UpdateView):
    model = Note
