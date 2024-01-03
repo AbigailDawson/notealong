@@ -1,17 +1,22 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base_user.html' %}
 
-<h1>Collections</h1>
-{% for collection in collections %}
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">{{ collection.name }}</span>
-        <p>{{ collection.description }}</p>
-        <p>Created on {{ collection.date_created }}</p>
-        <p>Updated on {{ collection.date_updated }}</p>
-        <a href="{% url 'detail' collection.id %}">Details</a>
-      </div>
-    </div>
-
-{% endfor %}
+{% block middle %}
+    {% for collection in collections %}
+        <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ collection.name }}</span>
+            <p>{{ collection.description }}</p>
+            <p>Created on {{ collection.date_created }}</p>
+            <p>Updated on {{ collection.date_updated }}</p>
+            <a href="{% url 'detail' collection.id %}">Details</a>
+        </div>
+        </div>
+    {% endfor %}
 {% endblock %}
+
+{% block right %}
+        <h2>Testing again</h2>
+{% endblock %}
+
+
+

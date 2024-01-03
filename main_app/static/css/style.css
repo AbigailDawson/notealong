@@ -1,28 +1,24 @@
 :root {
-  --text: #2E2631;
-  --text-lt: #626262;
-  --background: #fcfaf7;
-  --primary: #eddcd2;
-  --button-blu: #39A199;
-  --button-lt: #eddcd2;
-  --button-hover: #39A199;
-  --accent-blu: #23655f;
-  --accent-prp: #987174;
-  --headings-font: "Francois One", sans-serif;
-  --body-font: "Roboto", sans-serif;
+  --headings-font: "Karma", serif;
+  --body-font: "Inter", sans-serif;
+  --text: #000000;
+  --sky-blu: #d6e0e2;
+  --cream: #f4efe6;
+  --green: #5e6c5b;
+  --off-wht: #fefcf6;
+  --grey: #686867;
+  --drk-blu: #162a2c;
 }
 
 /*  ====  GLOBAL  ====  */
 
 body {
-  background-color: var(--background);
+  background-color: var(--sky-blu);
   font-family: var(--body-font);
-  padding-top: 80px;
 }
 
-footer {
-  font-size: 12px;
-  background-color: var(--primary);
+.navbar {
+  background-color: var(--sky-blu);
 }
 
 a {
@@ -31,14 +27,17 @@ a {
 }
 
 a:hover {
-  color: var(--button-hover);
-}
-
-.github {
-  font-size: 11px;
-  font-weight: 800;
+  color: var(--green);
 }
 
 h1, h2, h3, h4, h5 {
   font-family: var(--headings-font);
+}
+
+/*  ====  USER  ====  */
+
+.user-container {
+  background-color: white;
+  border-radius: 60px;
+  height: 80vh;
 }
