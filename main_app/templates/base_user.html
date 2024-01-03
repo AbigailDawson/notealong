@@ -18,7 +18,20 @@
     </div>
     <div class="row">
         <div class="left-col col-12 col-lg-4 overflow-scroll">
-            {% block left %}     
+            {% block left %}
+            <div class="d-flex flex-column">
+                <h4 class="mb-3">My Collections</h4>
+                {% for collection in all_collections %}
+                <div class="card m-2 p-4">
+                    <h4 class="card-title mb-3">{{ collection.name }}</h4>
+                    <p class="card-subtitle mb-1">Created on {{ collection.date_created }}</p>
+                    <p class="card-subtitle">Updated on {{ collection.date_updated }}</p>
+                    <p class="card-text mt-2">{{ collection.description }}</p>
+                    
+                    <a href="{% url 'detail' collection.id %}">Details</a>
+                </div>
+            {% endfor %}
+            </div>     
             {% endblock %}
         </div>
         <div class="right-col col-12 col-lg-8 overflow-scroll">
