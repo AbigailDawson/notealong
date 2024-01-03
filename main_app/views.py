@@ -62,4 +62,5 @@ class CollectionUpdate(LoginRequiredMixin, UpdateView):
 
 class CollectionDelete(LoginRequiredMixin, DeleteView):
   model = Collection
-  success_url = '/colleections'
+  success_url = '/collections'
+
