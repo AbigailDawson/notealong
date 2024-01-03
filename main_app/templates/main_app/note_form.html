@@ -1,0 +1,18 @@
+{% extends 'base_user.html' %}
+
+{% block right %}
+  <div class="d-flex flex-column">
+    {% if object %}
+      <h4>Edit <span>{{ object.name }}</span></h4>
+      {% else %}
+        <h4 class="mb-3">Create Note</h4>
+    {% endif %}
+    <form action="" method="POST">
+      {% csrf_token %}
+      <table>
+        {{ form.as_p }}
+      </table>
+      <button class="btn btn-outline-secondary btn-md" type="submit">Submit!</button>
+    </form>
+  </div>
+{% endblock %}
