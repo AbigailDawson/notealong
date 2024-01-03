@@ -10,4 +10,7 @@ urlpatterns = [
     path('collections/create/', views.CollectionCreate.as_view(), name='collections_create'),
     path('collections/<int:pk>/update/', views.CollectionUpdate.as_view(), name='collections_update'),
     path('collections/<int:pk>/delete/', views.CollectionDelete.as_view(), name='collections_delete'),
+    path('notes/create/', views.NoteCreate.as_view(), name='notes_create'),
+    path('notes/<int:pk>/update/', views.NoteUpdate.as_view(), name='notes_update'),
+    path('notes/<int:pk>/delete/', views.NoteDelete.as_view(), name='notes_delete'),
 ]
