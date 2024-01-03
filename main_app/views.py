@@ -45,7 +45,7 @@ def signup(request):
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
   form = UserCreationForm()
-  context = {'form': form, 'error_message': error_message}
+  context = {'form': form, 'error_messaggit e': error_message}
   return render(request, 'registration/signup.html', context)
 
 class CollectionCreate(LoginRequiredMixin, CreateView):
@@ -63,4 +63,3 @@ class CollectionUpdate(LoginRequiredMixin, UpdateView):
 class CollectionDelete(LoginRequiredMixin, DeleteView):
   model = Collection
   success_url = '/collections'
-
