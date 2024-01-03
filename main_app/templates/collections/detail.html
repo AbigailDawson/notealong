@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{ collection.name }}</h1>
+<p>Created on {{ collection.date_created }}</p>
+<p>Updated on {{ collection.date_updated }}</p>
+<p>{{ collection.description }}</p>
+
+<h2>Notes</h2>
+{% if collection.notes.count %}
+    {% for note in collection.notes.all %}
+        <p>{{ note.content }}</p>
+    {% endfor %}
+{% else %}
+    <p>No notes have been added to this collection.</p>
+{% endif %}
+
+<h2>References</h2>
+{% if collection.references.count %}
+    {% for reference in collection.references.all %}
+        <p>{{ reference.name }}</p>
+        <p>Type: {{ reference.type }}</p>
+        <p>{{ reference.url }}</p>
+    {% endfor %}
+{% else %}
+    <p>No notes have been added to this collection.</p>
+{% endif %}
+
+{% endblock %}

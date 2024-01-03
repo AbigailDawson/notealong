@@ -23,7 +23,7 @@ def collections_index(request):
 def collections_detail(request, collection_id):
    collection = Collection.objects.get(id=collection_id)
    return render(request, 'collections/detail.html', {
-      'collections': collection,
+      'collection': collection,
    })
 
 def signup(request):
