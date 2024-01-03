@@ -29,6 +29,8 @@
                     <p class="card-text mt-2">{{ collection.description }}</p>
                     
                     <a href="{% url 'detail' collection.id %}">Details</a>
+                    <a href="{% url 'collections_update' collection.id %}">Update</a>
+                    <a href="{% url 'collections_delete' collection.id %}">Delete</a>
                 </div>
             {% endfor %}
             </div>     
