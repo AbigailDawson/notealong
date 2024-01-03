@@ -2,10 +2,11 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils import timezone
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Note(models.Model):
-  content = models.TextField(blank=False, default='')
+  content = RichTextField(blank=False, default='')
 
 class Reference(models.Model):
   FILETYPES = (
