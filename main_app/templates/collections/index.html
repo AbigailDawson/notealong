@@ -2,6 +2,7 @@
 {% block content %}
 
 <h1>Collections</h1>
+<a href="{% url 'collections_create' %}">Create Collection</a>
 {% for collection in collections %}
     <div class="card">
       <div class="card-content">
