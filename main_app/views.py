@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Collection
+from .models import Collection, Note
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -63,3 +63,15 @@ class CollectionUpdate(LoginRequiredMixin, UpdateView):
 class CollectionDelete(LoginRequiredMixin, DeleteView):
   model = Collection
   success_url = '/collections'
+
+class NoteCreate(LoginRequiredMixin, CreateView):
+  model = Note
+  fields = '__all__'
+
+class NoteUpdate(LoginRequiredMixin, UpdateView):
+   model = Note
+   fields = '__all__'
+
+class NoteDelete(LoginRequiredMixin, DeleteView):
+   model = Note
+   success_url = '/collections'
