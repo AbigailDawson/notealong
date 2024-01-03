@@ -55,19 +55,17 @@ h1, h2, h3, h4, h5 {
 
 .left-col,
 .right-col {
-  padding: 30px;
+  padding: 20px 30px 20px 40px;
 }
 
-.middle-col {
-  padding: 20px;
+.border-line {
+  margin: 15px auto;
+  height: 1px;
+  width: 95%;
+  background-color: var(--grey);
 }
-
 .left-col {
   border-right: 1px solid var(--grey);
-}
-
-.right-col {
-  border-left: 1px solid var(--grey);
 }
 
 .card-subtitle {
