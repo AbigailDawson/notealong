@@ -1,15 +1,77 @@
+:root {
+  --headings-font: "Karma", serif;
+  --body-font: "Inter", sans-serif;
+  --text: #000000;
+  --sky-blu: #d6e0e2;
+  --cream: #f4efe6;
+  --green: #5e6c5b;
+  --off-wht: #fefcf6;
+  --grey: #686867;
+  --drk-blu: #162a2c;
+}
+
+/*  ====  GLOBAL  ====  */
+
 body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
-  
-  main {
-    flex: 1 0 auto;
-  }
-  
-  footer.page-footer {
-    padding-top: 0;
-    text-align: right;
-  }
-  
+  background-color: var(--sky-blu);
+  font-family: var(--body-font);
+}
+
+.navbar {
+  background-color: var(--sky-blu);
+}
+
+a {
+  text-decoration: none;
+  color: var(--text);
+}
+
+a:hover {
+  color: var(--green);
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--headings-font);
+}
+
+/*  ====  NAV  ====  */
+
+.navbar-brand {
+  font-size: 40px;
+  font-family: var(--headings-font);
+}
+
+.navbar .btn {
+  font-family: var(--headings-font);
+}
+
+/*  ====  USER  ====  */
+
+.content-container {
+  background-color: white;
+  border-radius: 60px;
+  height: 80vh;
+}
+
+.left-col,
+.right-col {
+  padding: 20px 30px 20px 40px;
+}
+
+.border-line {
+  margin: 15px auto;
+  height: 1px;
+  width: 95%;
+  background-color: var(--grey);
+}
+.left-col {
+  border-right: 1px solid var(--grey);
+}
+
+.card-subtitle {
+  font-size: 12px;
+}
+
+.card-text {
+  font-size: 13px;
+}

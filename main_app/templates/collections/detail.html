@@ -1,29 +1,43 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base_user.html' %}
 
-<h1>{{ collection.name }}</h1>
-<p>Created on {{ collection.date_created }}</p>
-<p>Updated on {{ collection.date_updated }}</p>
-<p>{{ collection.description }}</p>
-
-<h2>Notes</h2>
-{% if collection.notes.count %}
-    {% for note in collection.notes.all %}
-        <p>{{ note.content }}</p>
+{% block left %}
+    <div class="d-flex flex-column">
+        <h4 class="mb-3">My Collections</h4>
+        {% for collection in collections %}
+        <div class="card m-2 p-4">
+            <h4 class="card-title mb-3">{{ collection.name }}</h4>
+            <p class="card-subtitle mb-1">Created on {{ collection.date_created }}</p>
+            <p class="card-subtitle">Updated on {{ collection.date_updated }}</p>
+            <p class="card-text mt-2">{{ collection.description }}</p>
+            
+            <a href="{% url 'detail' collection.id %}">Details</a>
+        </div>
     {% endfor %}
-{% else %}
-    <p>No notes have been added to this collection.</p>
-{% endif %}
+    </div>
+{% endblock %}
 
-<h2>References</h2>
-{% if collection.references.count %}
-    {% for reference in collection.references.all %}
-        <p>{{ reference.name }}</p>
-        <p>Type: {{ reference.type }}</p>
-        <p>{{ reference.url }}</p>
-    {% endfor %}
-{% else %}
-    <p>No notes have been added to this collection.</p>
-{% endif %}
-
+{% block right %}
+<div class="d-flex flex-column">
+    <div class="card m-2 p-4">
+        <h4 class="card-title mb-3">Notes</h4>
+        {% if collection.notes.count %}
+            {% for note in collection.notes.all %}
+                <p class="card-text mt-2">{{ note.content }}</p>
+            {% endfor %}
+        {% else %}
+            <p class="card-text mt-2">No notes have been added to this collection.</p>
+        {% endif %}
+    </div>
+    <div class="card m-2 p-4">
+        <h4 class="card-title mb-3">References</h4>
+        {% if collection.references.count %}
+            {% for reference in collection.references.all %}
+                <p class="card-text mt-2">{{ reference.name }} ({{ reference.type }})</p>
+                <p class="card-text mt-2">{{ reference.url }}</p>
+            {% endfor %}
+        {% else %}
+            <p class="card-text mt-2">No references have been added to this collection.</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
