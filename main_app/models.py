@@ -8,6 +8,9 @@ from ckeditor.fields import RichTextField
 class Note(models.Model):
   content = RichTextField(blank=False, default='')
 
+  def get_absolute_url(self):
+    return reverse('detail', kwargs={'collection_id': self.id})
+
 class Reference(models.Model):
   FILETYPES = (
     ('I', 'Image'),
