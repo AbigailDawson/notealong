@@ -19,10 +19,6 @@ body {
   font-family: var(--body-font);
 }
 
-.navbar {
-  background-color: var(--sky-blu);
-}
-
 a {
   text-decoration: none;
   color: var(--text);
@@ -67,6 +63,36 @@ h1, h2, h3, h4, h5 {
 
 .navbar .btn {
   font-family: var(--headings-font);
+}
+
+.navbar {
+  background-color: var(--sky-blu);
+}
+
+.nav-link {
+  border: none;
+  outline: none;
+}
+
+/* stroke */
+nav.stroke ul li a {
+  position: relative;
+}
+nav.stroke ul li a:after {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: var(--green);
+  height: 2px;
+  transition: width 200ms ease-in-out;
+}
+nav.stroke ul li a:hover:after {
+  width: 80%;
 }
 
 /*  ====  LOGIN  ====  */
