@@ -37,6 +37,8 @@ h1, h2, h3, h4, h5 {
 /*  ====  BUTTONS  ====  */
 
 .green-btn {
+  border: none;
+  outline: none;
   background-color: var(--green);
   color: white;
 }
@@ -44,6 +46,11 @@ h1, h2, h3, h4, h5 {
 .green-btn:hover {
   background-color: var(--sky-blu);
   color: var(--text);
+}
+
+.search-btn {
+  border: none;
+  outline: none;
 }
 
 /*  ====  NAV  ====  */
