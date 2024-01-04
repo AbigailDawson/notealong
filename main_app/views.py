@@ -80,14 +80,23 @@ class NoteCreate(LoginRequiredMixin, CreateView):
   
   def form_valid(self, form):
     collection = Collection.objects.get(id=self.kwargs['collection_id'])
-    content = form.cleaned_data.get('content')
-    new_note = Note.objects.create(content=content)
+    new_note = form.save(commit=False)
+    new_note.save()
     collection.notes.add(new_note)
     return super().form_valid(form)
 
 class NoteUpdate(LoginRequiredMixin, UpdateView):
-   model = Note
-   fields = '__all__'
+  model = Note
+  fields = '__all__'   
+  
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['all_collections'] = Collection.objects.filter(user=self.request.user)
+    return context
+  
+  def get_success_url(self):
+    return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
+
 
 class NoteDelete(LoginRequiredMixin, DeleteView):
    model = Note
