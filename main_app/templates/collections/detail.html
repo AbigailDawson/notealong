@@ -10,7 +10,11 @@
             {% for note in collection.notes.all %}
                 <a href="{% url 'notes_update' collection.id note.id %}"><button class="btn btn-outline-secondary btn-sm">Edit</button></a>
                 <a href="{% url 'notes_delete' collection.id note.id %}"><button class="btn btn-outline-secondary btn-sm">Delete</button></a>
-                <p class="card-text mt-2">{{ note.content }}</p>
+                <div class="card-text mt-2">
+                    {% autoescape off %}
+                    {{ note.content }}
+                    {% endautoescape %}
+                </div>
             {% endfor %}
         {% else %}
             <p class="card-text mt-2">No notes have been added to this collection.</p>
