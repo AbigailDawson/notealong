@@ -12,6 +12,6 @@ urlpatterns = [
     path('collections/<int:pk>/delete/', views.CollectionDelete.as_view(), name='collections_delete'),
     path('collections/<int:collection_id>/notes/create/', views.NoteCreate.as_view(), name='notes_create'),
     path('collections/<int:collection_id>/notes/<int:pk>/update/', views.NoteUpdate.as_view(), name='notes_update'),
-    path('notes/<int:pk>/delete/', views.NoteDelete.as_view(), name='notes_delete'),
+    path('collections/<int:collection_id>/notes/<int:pk>/delete/', views.NoteDelete.as_view(), name='notes_delete'),
 
 ]
