@@ -3,6 +3,8 @@
   --body-font: "Inter", sans-serif;
   --text: #000000;
   --sky-blu: #d6e0e2;
+  --blu-pop: #c1e0e6;
+  --blu-pop-lt: #d6f3f9;
   --cream: #f4efe6;
   --green: #5e6c5b;
   --off-wht: #fefcf6;
@@ -36,16 +38,19 @@ h1, h2, h3, h4, h5 {
 
 /*  ====  BUTTONS  ====  */
 
-.green-btn {
-  border: none;
+.btn-blu {
+  border: 1px solid var(--drk-blu);
   outline: none;
-  background-color: var(--green);
-  color: white;
+  background-color: var(--blu-pop);
+  color: var(--text);
+  transition: 200ms ease-in-out;
 }
 
-.green-btn:hover {
-  background-color: var(--sky-blu);
+.btn-blu:hover {
+  border: 1px solid var(--drk-blu);
+  background-color: var(--blu-pop-lt);
   color: var(--text);
+  transform: scale(1.05);
 }
 
 .search-btn {
