@@ -108,3 +108,4 @@ class NoteDelete(LoginRequiredMixin, DeleteView):
   
   def get_success_url(self):
     return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
+
