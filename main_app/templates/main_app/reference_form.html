@@ -10,7 +10,7 @@
     <form action="{% url 'references_create' collection.id %}" enctype="multipart/form-data" method="POST">
       {% csrf_token %}
       {{ form.as_p }}
-      <input type="file" name="reference-file">
+      <input type="file" name="url">
       <button class="btn btn-outline-secondary btn-md" type="submit">Submit!</button>
     </form>
   </div>
