@@ -54,7 +54,7 @@ def signup(request):
 
 class CollectionCreate(LoginRequiredMixin, CreateView):
   model = Collection
-  fields = ['name', 'description']
+  fields = ['name', 'description', 'shared']
   
   def form_valid(self, form):
     form.instance.user = self.request.user
@@ -62,7 +62,7 @@ class CollectionCreate(LoginRequiredMixin, CreateView):
 
 class CollectionUpdate(LoginRequiredMixin, UpdateView):
    model = Collection
-   fields = ['name', 'description']
+   fields = ['name', 'description','shared']
 
 class CollectionDelete(LoginRequiredMixin, DeleteView):
   model = Collection
@@ -127,7 +127,6 @@ class ReferenceCreate(LoginRequiredMixin, CreateView):
 
   def form_valid(self, form):
     collection = Collection.objects.get(id=self.kwargs['collection_id'])
-
     reference_file = self.request.FILES.get('url', None)
     if reference_file:
       s3 = boto3.client('s3')
@@ -136,14 +135,39 @@ class ReferenceCreate(LoginRequiredMixin, CreateView):
         bucket = os.environ['S3_BUCKET']
         s3.upload_fileobj(reference_file, bucket, key)
         url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-        new_reference = Reference.objects.create(url=url)
+        name = self.request.POST['name']
+        type = self.request.POST['type']
+        new_reference = Reference.objects.create(url=url, name=name, type=type)
         collection.references.add(new_reference)
       except Exception as e:
         print('An error occurred uploading file to S3')
         print(e)
-
-    new_reference = form.save(commit=False)
-    new_reference.save()
-    collection.references.add(new_reference)
-
     return super().form_valid(form)
+  
+class ReferenceUpdate(LoginRequiredMixin, UpdateView):
+  model = Reference
+  fields = ['name', 'type']   
+  
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['all_collections'] = Collection.objects.filter(user=self.request.user)
+    return context
+  
+  def get_success_url(self):
+    return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
+
+class ReferenceDelete(LoginRequiredMixin, DeleteView):
+  model = Reference  
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['all_collections'] = Collection.objects.filter(user=self.request.user)
+    context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
+    return context
+  
+  def get_success_url(self):
+    return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
+  
+def collections_index(request):
+  shared_collections = Collection.objects.filter(shared=True)
+  return render(request, 'collections/index.html', {'all_collections': all_collections})
