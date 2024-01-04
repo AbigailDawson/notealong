@@ -3,6 +3,8 @@
   --body-font: "Inter", sans-serif;
   --text: #000000;
   --sky-blu: #d6e0e2;
+  --blu-pop: #c1e0e6;
+  --blu-pop-lt: #d6f3f9;
   --cream: #f4efe6;
   --green: #5e6c5b;
   --off-wht: #fefcf6;
@@ -15,10 +17,6 @@
 body {
   background-color: var(--sky-blu);
   font-family: var(--body-font);
-}
-
-.navbar {
-  background-color: var(--sky-blu);
 }
 
 a {
@@ -34,6 +32,28 @@ h1, h2, h3, h4, h5 {
   font-family: var(--headings-font);
 }
 
+/*  ====  BUTTONS  ====  */
+
+.btn-blu {
+  border: 1px solid var(--drk-blu);
+  outline: none;
+  background-color: var(--blu-pop);
+  color: var(--text);
+  transition: 200ms ease-in-out;
+}
+
+.btn-blu:hover {
+  border: 1px solid var(--drk-blu);
+  background-color: var(--blu-pop-lt);
+  color: var(--text);
+  transform: scale(1.05);
+}
+
+.search-btn {
+  border: none;
+  outline: none;
+}
+
 /*  ====  NAV  ====  */
 
 .navbar-brand {
@@ -43,6 +63,58 @@ h1, h2, h3, h4, h5 {
 
 .navbar .btn {
   font-family: var(--headings-font);
+}
+
+.navbar {
+  background-color: var(--sky-blu);
+}
+
+.nav-link {
+  border: none;
+  outline: none;
+}
+
+/* stroke */
+nav.stroke ul li a {
+  position: relative;
+}
+nav.stroke ul li a:after {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: var(--green);
+  height: 2px;
+  transition: width 200ms ease-in-out;
+}
+nav.stroke ul li a:hover:after {
+  width: 80%;
+}
+
+/*  ====  LOGIN  ====  */
+
+.login-left-container,
+.login-right-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.login-left-container {
+  background-color: var(--cream);
+  border-radius: 50px;
+}
+
+.login-box {
+  width: 400px;
+  border-radius: 20px;
+  padding: 20px;
 }
 
 /*  ====  USER  ====  */
@@ -55,7 +127,9 @@ h1, h2, h3, h4, h5 {
 
 .left-col,
 .right-col {
-  padding: 20px 30px 20px 40px;
+  padding: 20px 40px 20px 40px;
+  height: calc(70vh - 40px);
+  overflow-y: auto;
 }
 
 .border-line {

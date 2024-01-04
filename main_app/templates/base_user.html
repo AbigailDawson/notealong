@@ -7,17 +7,21 @@
         {% block top %}
         <div class="top-row px-5 d-flex flex-row justify-content-between align-items-end">
             <h3 class="m-0">Welcome, <b>{{ user.username }}</b></h3>
-            <a href="{% url 'collections_create' %}"><button class="btn btn-outline-secondary btn-md">Add Collection</button></a>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search my collections" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <div class="right-btns d-flex flex-row">
+                <a href="{% url 'collections_create' %}"><button class="btn btn-blu btn-md me-3">Add Collection</button></a>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search my collections" aria-label="Search">
+                    <button class="btn search-btn" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                      </svg></button>
+                </form>
+            </div>
         </div>
         <div class="border-line"></div>
         {% endblock %}
     </div>
-    <div class="row">
-        <div class="left-col col-12 col-lg-4 overflow-scroll">
+    <div class="col-content-container row">
+        <div class="left-col col-12 col-lg-4">
             {% block left %}
             <div class="d-flex flex-column">
                 <h4 class="mb-3">My Collections</h4>
@@ -36,7 +40,7 @@
             </div>     
             {% endblock %}
         </div>
-        <div class="right-col col-12 col-lg-8 overflow-scroll">
+        <div class="right-col col-12 col-lg-8">
             {% block right %}
             {% endblock %}
         </div>
