@@ -1,7 +1,10 @@
+import uuid
+import boto3
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .models import Collection, Note
+from .models import Collection, Note, Reference
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .forms import ReferenceForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -108,3 +111,39 @@ class NoteDelete(LoginRequiredMixin, DeleteView):
   
   def get_success_url(self):
     return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
+
+class ReferenceCreate(LoginRequiredMixin, CreateView):
+  model = Reference
+  fields = ['name', 'type']
+
+  def get_success_url(self):
+    return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['all_collections'] = Collection.objects.filter(user=self.request.user)
+    context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
+    return context
+
+  def form_valid(self, form):
+    collection = Collection.objects.get(id=self.kwargs['collection_id'])
+
+    reference_file = self.request.FILES.get('url', None)
+    if reference_file:
+      s3 = boto3.client('s3')
+      key = uuid.uuid4().hex[:6] + reference_file.name[reference_file.name.rfind('.'):]
+      try:
+        bucket = os.environ['S3_BUCKET']
+        s3.upload_fileobj(reference_file, bucket, key)
+        url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+        new_reference = Reference.objects.create(url=url)
+        collection.references.add(new_reference)
+      except Exception as e:
+        print('An error occurred uploading file to S3')
+        print(e)
+
+    new_reference = form.save(commit=False)
+    new_reference.save()
+    collection.references.add(new_reference)
+
+    return super().form_valid(form)
