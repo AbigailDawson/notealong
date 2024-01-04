@@ -2,15 +2,25 @@
 {% block content %}
 
 <div class="content-container container mt-5 py-4">
-    <div class="login-container">
-        <div class="login-box">
-            <h1>Log In</h1>
-            <form method="POST" action="{% url 'login' %}">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="hidden" name="next" value="{{ next }}">
-                <button type="submit" class="btn green-btn">Log In</button>
-            </form>
+    <div class="row" style="height: 100%">
+        <div class="col-12 col-lg-6">
+            <div class="login-left-container ms-2 p-3">
+                <h1>Notealong</h1>
+                <p class="lead text-center">Your notetaking companion for coding mastery.</p>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="login-right-container">
+                <div class="login-box">
+                    <h1>Log In</h1>
+                    <form method="POST" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="hidden" name="next" value="{{ next }}">
+                        <button type="submit" class="btn green-btn">Log In</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
