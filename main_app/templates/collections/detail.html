@@ -25,7 +25,9 @@
         <h4 class="card-title mb-3">References</h4>
         {% if collection.references.count %}
             {% for reference in collection.references.all %}
-                <p class="card-text mt-2">{{ reference.name }} ({{ reference.type }})</p>
+                <a href="{% url 'references_update' collection.id note.id %}"><button class="btn btn-outline-secondary btn-sm">Edit</button></a>
+                <a href="{% url 'references_delete' collection.id note.id %}"><button class="btn btn-outline-secondary btn-sm">Delete</button></a>
+                <p class="card-text mt-2">{{ reference.name }} ({{ reference.get_type_display }})</p>
                 <p class="card-text mt-2">{{ reference.url }}</p>
             {% endfor %}
         {% else %}
