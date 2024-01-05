@@ -34,6 +34,10 @@ h1, h2, h3, h4, h5 {
 
 /*  ====  BUTTONS  ====  */
 
+.btn-lg {
+  padding: 10px;
+}
+
 .btn-blu {
   border: 1px solid var(--drk-blu);
   outline: none;
@@ -148,4 +152,34 @@ nav.stroke ul li a:hover:after {
 
 .card-text {
   font-size: 13px;
+}
+
+/*  ====  MEDIA QUERIES  ====  */
+
+@media (min-width: 576px) {
+
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .btn-lg {
+    padding: 20px;
+  }
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+  .btn-lg {
+    padding: 25px;
+  }
 }
