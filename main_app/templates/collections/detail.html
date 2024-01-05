@@ -3,10 +3,16 @@
 
 {% block right %}
 <div class="d-flex flex-column">
-    <a href="{% url 'notes_create' collection.id %}"><button class="btn btn-outline-secondary btn-md">New Note</button></a>
-    <a href="{% url 'references_create' collection.id %}"><button class="btn btn-outline-secondary btn-md">New Reference</button></a>
+    <h2>{{ collection.name }}</h2>
+    <p>{{ collection.description }}</p>
+    <div class="d-flex">
+        <a role="btn" class="btn btn-outline-secondary btn-md me-3" href="{% url 'notes_create' collection.id %}">New Note</a>
+        <a role="btn" class="btn btn-outline-secondary btn-md" href="{% url 'references_create' collection.id %}">New Reference</a>
+    </div>
+    
     <div class="card m-2 p-4">
         <h4 class="card-title mb-3">Notes</h4>
+        
         {% if collection.notes.count %}
             {% for note in collection.notes.all %}
                 <a href="{% url 'notes_update' collection.id note.id %}"><button class="btn btn-outline-secondary btn-sm">Edit</button></a>
