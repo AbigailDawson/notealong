@@ -212,3 +212,10 @@ class SearchResults(LoginRequiredMixin, ListView):
         Q(name__icontains=query) | Q(description__icontains=query)
       )
       return object_list
+    
+@login_required
+def search_results_detail(request, collection_id):
+  collection = Collection.objects.get(id=collection_id)
+  return render(request, 'search_results/detail.html', {
+    'collection': collection,
+  })

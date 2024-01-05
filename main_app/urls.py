@@ -20,4 +20,5 @@ urlpatterns = [
     path('shared-collections/', views.shared_collections_index, name='shared_collections'),
     path('shared-collections/<int:collection_id>/', views.shared_collections_detail, name="shared_collections_detail"),
     path('search/', views.SearchResults.as_view(), name='search_results'),
+    path('search/<int:collection_id>/', views.search_results_detail, name="search_results_detail")
 ]
