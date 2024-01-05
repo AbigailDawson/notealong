@@ -38,18 +38,13 @@ def collections_detail(request, collection_id):
 def signup(request):
   error_message = ''
   if request.method == 'POST':
-    # This is how to create a 'user' form object
-    # that includes the data from the browser
     form = UserCreationForm(request.POST)
     if form.is_valid():
-      # This will add the user to the database
       user = form.save()
-      # This is how we log a user in via code
       login(request, user)
       return redirect('home')
     else:
       error_message = 'Invalid sign up - try again'
-  # A bad POST or a GET request, so render signup.html with an empty form
   form = UserCreationForm()
   context = {'form': form, 'error_messaggit e': error_message}
   return render(request, 'registration/signup.html', context)
@@ -115,6 +110,15 @@ class NoteDelete(LoginRequiredMixin, DeleteView):
   def get_success_url(self):
     return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
 
+class ReferenceIndex(LoginRequiredMixin, ListView):
+  model = Reference
+  template_name = 'main_app/references_index.html'
+  
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['references'] = Reference.objects.filter(user=self.request.user)
+    return context
+
 class ReferenceCreate(LoginRequiredMixin, CreateView):
   model = Reference
   fields = ['name', 'type']
@@ -131,6 +135,7 @@ class ReferenceCreate(LoginRequiredMixin, CreateView):
   def form_valid(self, form):
     collection = Collection.objects.get(id=self.kwargs['collection_id'])
     reference_file = self.request.FILES.get('url', None)
+    form.instance.user = self.request.user
     if reference_file:
       s3 = boto3.client('s3')
       key = uuid.uuid4().hex[:6] + reference_file.name[reference_file.name.rfind('.'):]
@@ -140,7 +145,7 @@ class ReferenceCreate(LoginRequiredMixin, CreateView):
         url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
         name = self.request.POST['name']
         type = self.request.POST['type']
-        new_reference = Reference.objects.create(url=url, name=name, type=type)
+        new_reference = Reference.objects.create(url=url, name=name, type=type, user=form.instance.user)
         collection.references.add(new_reference)
       except Exception as e:
         print('An error occurred uploading file to S3')
@@ -191,17 +196,18 @@ class SearchResults(LoginRequiredMixin, ListView):
   template_name = 'main_app/search_results.html'
   
   def get_queryset(self):
-    query = list(self.request.GET.keys())
-    print(query)
-    if query == 'q-user':
-      print('q-user is working')
-      
-      object_list = Collection.objects.filter(Q(user=self.request.user) and
+    query = self.request.GET.get('q')
+    type = self.request.GET.get('type')
+    
+    if type == 'search-user':
+      print('search-user is working')
+      print(self.request.user)
+      object_list = Collection.objects.filter(Q(user=self.request.user),
         Q(name__icontains=query) | Q(description__icontains=query)
       )
       return object_list
-    elif query == ['q-shared']:
-      print('q-shared is working')
+    elif type == 'search-shared':
+      print('search-shared is working')
       object_list = Collection.objects.filter(Q(shared=True) and
         Q(name__icontains=query) | Q(description__icontains=query)
       )
