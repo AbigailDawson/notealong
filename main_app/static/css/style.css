@@ -1,6 +1,7 @@
 :root {
   --headings-font: "Karma", serif;
   --body-font: "Inter", sans-serif;
+  --text-lt: #474747;
   --text: #000000;
   --sky-blu: #d6e0e2;
   --blu-pop: #c1e0e6;
@@ -8,6 +9,7 @@
   --cream: #f4efe6;
   --green: #5e6c5b;
   --off-wht: #fefcf6;
+  --grey-lt: #b2b2b2;
   --grey: #686867;
   --drk-blu: #162a2c;
 }
@@ -34,6 +36,10 @@ h1, h2, h3, h4, h5 {
 
 /*  ====  BUTTONS  ====  */
 
+.btn-lg {
+  padding: 10px;
+}
+
 .btn-blu {
   border: 1px solid var(--drk-blu);
   outline: none;
@@ -52,6 +58,26 @@ h1, h2, h3, h4, h5 {
 .search-btn {
   border: none;
   outline: none;
+}
+
+/*  ====  ICONS  ====  */
+
+.icon-btn:hover {
+  color: var(--green);
+}
+
+/*  ====  FORMS  ====  */
+
+.small-text {
+  font-size: 12px;
+}
+
+.delete-link {
+  color: rgb(168, 4, 4);
+}
+
+.delete-link:hover {
+  color: rgb(228, 0, 0);
 }
 
 /*  ====  NAV  ====  */
@@ -95,6 +121,22 @@ nav.stroke ul li a:hover:after {
   width: 80%;
 }
 
+/*  ====  COLLECTION CARDS  ====  */
+
+.collection-card {
+  outline: 1px solid var(--grey-lt);
+  border: none;
+  transition: 200ms ease-in-out;
+}
+
+.collection-card:hover {
+  border: none;
+  outline: 2px solid var(--blu-pop);
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+
 /*  ====  LOGIN  ====  */
 
 .login-left-container,
@@ -107,7 +149,7 @@ nav.stroke ul li a:hover:after {
 }
 
 .login-left-container {
-  background-color: var(--cream);
+  background-color: var(--sky-blu);
   border-radius: 50px;
 }
 
@@ -138,6 +180,7 @@ nav.stroke ul li a:hover:after {
   width: 95%;
   background-color: var(--grey);
 }
+
 .left-col {
   border-right: 1px solid var(--grey);
 }
@@ -148,4 +191,67 @@ nav.stroke ul li a:hover:after {
 
 .card-text {
   font-size: 13px;
+}
+
+/*  ====  MEDIA QUERIES  ====  */
+
+@media (max-width: 768px) {
+  .content-container {
+    background-color: white;
+    border-radius: 60px;
+    height: 80vh;
+  }
+  
+  .left-col,
+  .right-col {
+    padding: 0px 40px 0px 40px;
+    height: 300px;
+    overflow-y: auto;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .content-container {
+    background-color: white;
+    border-radius: 60px;
+    height: 80vh;
+  }
+  
+  .left-col,
+  .right-col {
+    padding: 0px 40px 0px 40px;
+    height: 300px;
+    overflow-y: auto;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .content-container {
+    background-color: white;
+    border-radius: 60px;
+    height: 80vh;
+  }
+  
+  .left-col,
+  .right-col {
+    padding: 20px 40px 20px 40px;
+    height: calc(70vh - 40px);
+    overflow-y: auto;
+  }
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .btn-lg {
+    padding: 20px;
+  }
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+  .btn-lg {
+    padding: 25px;
+  }
 }

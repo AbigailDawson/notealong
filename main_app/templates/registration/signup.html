@@ -1,14 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 
-<h1>Sign Up</h1>
-
-<p class="red-text">{{ error_message }}</p>
-
-<form method="POST" action="{% url 'signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" class="btn" value="Sign Up">
-</form>
+<div class="content-container container mt-2 py-4">
+    <div class="row" style="height: 100%">
+        <div class="col-12 col-lg-6">
+            <div class="login-left-container ms-2 p-3">
+                <div class="image-wrapper">
+                    <img src="{% static 'images/logo-blu-title.png' %}" alt="" style="width: 400px">
+                </div>
+                <h3 class="text-center mt-5">Your notetaking companion for coding mastery.</h3>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="login-right-container">
+                <div class="login-box">
+                    <h1>Sign Up</h1>
+                    <p class="red-text">{{ error_message }}</p>
+                    <form method="POST" action="{% url 'signup' %}">
+                      {% csrf_token %}
+                      {{ form.as_p }}
+                      <input type="submit" class="btn btn-blu" value="Sign Up">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
