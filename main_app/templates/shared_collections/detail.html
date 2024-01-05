@@ -3,15 +3,21 @@
 
 {% block right %}
 <div class="d-flex flex-column">
-    <div class="card m-2 p-4">
-        <h4 class="card-title mb-3">Notes</h4>
+    <h2>{{ collection.name }}</h2>
+    <p>{{ collection.description }}</p>
+    <div class="mt-4">
+        <h4 class="mb-3">Notes</h4>
+        
         {% if collection.notes.count %}
             {% for note in collection.notes.all %}
-                <div class="card-text mt-2">
+            <div class="card my-2 p-3">
+                <div class="mt-2">
                     {% autoescape off %}
                     {{ note.content }}
                     {% endautoescape %}
                 </div>
+            </div>
+                
             {% endfor %}
         {% else %}
             <p class="card-text mt-2">No notes have been added to this collection.</p>
