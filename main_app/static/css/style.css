@@ -1,6 +1,7 @@
 :root {
   --headings-font: "Karma", serif;
   --body-font: "Inter", sans-serif;
+  --text-lt: #474747;
   --text: #000000;
   --sky-blu: #d6e0e2;
   --blu-pop: #c1e0e6;
@@ -8,6 +9,7 @@
   --cream: #f4efe6;
   --green: #5e6c5b;
   --off-wht: #fefcf6;
+  --grey-lt: #b2b2b2;
   --grey: #686867;
   --drk-blu: #162a2c;
 }
@@ -98,6 +100,31 @@ nav.stroke ul li a:after {
 nav.stroke ul li a:hover:after {
   width: 80%;
 }
+
+/*  ====  COLLECTION CARDS  ====  */
+
+.collection-link {
+  color: var(--text-lt);
+  transition: 200ms ease-in-out;
+}
+
+.collection-link:hover {
+  color: var(--text);
+}
+
+.collection-card {
+  outline: 1px solid var(--grey-lt);
+  border: none;
+  transition: 200ms ease-in-out;
+}
+
+.collection-card:hover {
+  border: none;
+  outline: 2px solid var(--blu-pop);
+  transform: scale(1.02);
+}
+
+
 
 /*  ====  LOGIN  ====  */
 

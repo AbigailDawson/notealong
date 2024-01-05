@@ -27,16 +27,17 @@
             <div class="d-flex flex-column">
 
                 {% for collection in all_collections %}
-                <div class="card m-2 p-4">
-                    <h4 class="card-title mb-3">{{ collection.name }}</h4>
-                    <p class="card-subtitle mb-1">Created on {{ collection.date_created }}</p>
-                    <p class="card-subtitle">Updated on {{ collection.date_updated }}</p>
-                    <p class="card-text mt-2">{{ collection.description }}</p>
-                    
-                    <a href="{% url 'detail' collection.id %}">Details</a>
-                    <a href="{% url 'collections_update' collection.id %}">Update</a>
-                    <a href="{% url 'collections_delete' collection.id %}">Delete</a>
-                </div>
+                <a class="collection-link" href="{% url 'detail' collection.id %}">
+                    <div class="collection-card card my-2 p-3">
+                        <h4 class="card-title mb-3">{{ collection.name }}</h4>
+                        <p class="card-subtitle mb-1">Created on {{ collection.date_created }}</p>
+                        <p class="card-subtitle">Updated on {{ collection.date_updated }}</p>
+                        <p class="card-text mt-2">{{ collection.description }}</p>
+                        
+                        <a href="{% url 'collections_update' collection.id %}">Update</a>
+                        <a href="{% url 'collections_delete' collection.id %}">Delete</a>
+                    </div>
+                </a>
             {% endfor %}
             </div>     
             {% endblock %}
