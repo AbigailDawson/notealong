@@ -39,7 +39,6 @@
                         <p class="card-subtitle mb-1">Created on {{ collection.date_created }}</p>
                         <p class="card-subtitle">Updated on {{ collection.date_updated }}</p>
                         <p class="card-text mt-2">{{ collection.description }}</p>
-                        <a href="{% url 'collections_delete' collection.id %}">Delete</a>
                     </div>
                 </a>
                 {% endfor %}

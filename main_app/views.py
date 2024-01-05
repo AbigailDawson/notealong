@@ -61,8 +61,8 @@ class CollectionCreate(LoginRequiredMixin, CreateView):
     return super().form_valid(form)
 
 class CollectionUpdate(LoginRequiredMixin, UpdateView):
-   model = Collection
-   form_class = CollectionForm
+  model = Collection
+  form_class = CollectionForm
 
 class CollectionDelete(LoginRequiredMixin, DeleteView):
   model = Collection

@@ -22,9 +22,14 @@
       <div class="form-group mt-3 mb-3">
         {{ form.shared }}
         <label for="{{ form.shared.id_for_label }}">Share?</label>
-        <p class="small mt-2"><b>NOTE: </b>Checking this box makes your collection and its notes and references visible to all users.</p>
+        <p class="small-text mt-2"><b>NOTE: </b>Checking this box makes your collection and its notes and references visible to all users.</p>
       </div>
       <button class="btn btn-outline-secondary btn-md w-100" type="submit">Submit!</button>
     </form>
+    {% if object %}
+    <a class="delete-link mt-4" href="{% url 'collections_delete' collection.id %}">Delete Collection</a>
+    <p class="small-text mt-2">Deleting this collection does not delete the notes and references saved to it.</p>
+    {% endif %}
+
   </div>
 {% endblock %}
