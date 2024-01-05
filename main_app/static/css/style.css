@@ -142,6 +142,7 @@ nav.stroke ul li a:hover:after {
   width: 95%;
   background-color: var(--grey);
 }
+
 .left-col {
   border-right: 1px solid var(--grey);
 }
@@ -156,18 +157,51 @@ nav.stroke ul li a:hover:after {
 
 /*  ====  MEDIA QUERIES  ====  */
 
-@media (min-width: 576px) {
-
+@media (max-width: 768px) {
+  .content-container {
+    background-color: white;
+    border-radius: 60px;
+    height: 80vh;
+  }
+  
+  .left-col,
+  .right-col {
+    padding: 0px 40px 0px 40px;
+    height: 300px;
+    overflow-y: auto;
+  }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+  .content-container {
+    background-color: white;
+    border-radius: 60px;
+    height: 80vh;
+  }
   
+  .left-col,
+  .right-col {
+    padding: 0px 40px 0px 40px;
+    height: 300px;
+    overflow-y: auto;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+  .content-container {
+    background-color: white;
+    border-radius: 60px;
+    height: 80vh;
+  }
   
+  .left-col,
+  .right-col {
+    padding: 20px 40px 20px 40px;
+    height: calc(70vh - 40px);
+    overflow-y: auto;
+  }
 }
 
 /* X-Large devices (large desktops, 1200px and up) */
