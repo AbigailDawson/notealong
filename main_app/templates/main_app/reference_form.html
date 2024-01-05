@@ -13,5 +13,9 @@
       <input type="file" name="url">
       <button class="btn btn-outline-secondary btn-md" type="submit">Submit!</button>
     </form>
+    {% if object %}
+      <a class="delete-link mt-4" href="{% url 'references_delete' collection.id reference.id %}">Delete Reference</a>
+      <p class="small-text mt-2"><b>Warning: </b>This action cannot be undone.</p>
+    {% endif %}
   </div>
 {% endblock %}

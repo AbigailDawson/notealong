@@ -23,15 +23,17 @@
             <p class="card-text mt-2">No notes have been added to this collection.</p>
         {% endif %}
     </div>
-    <div class="card m-2 p-4">
-        <h4 class="card-title mb-3">References</h4>
+    <div class="mt-4">
+        <h4 class="mb-3">References</h4>
         {% if collection.references.count %}
             {% for reference in collection.references.all %}
-                <p class="card-text mt-2">{{ reference.name }} ({{ reference.get_type_display }})</p>
-                <p class="card-text mt-2">{{ reference.url }}</p>
+            <div class="card my-2 p-3">
+                <p class="mt-2">{{ reference.name }} ({{ reference.get_type_display }})</p>
+                <p class="mt-2">{{ reference.url }}</p>
+            </div>
             {% endfor %}
         {% else %}
-            <p class="card-text mt-2">No references have been added to this collection.</p>
+            <p class="mt-2">No references have been added to this collection.</p>
         {% endif %}
     </div>
 </div>
