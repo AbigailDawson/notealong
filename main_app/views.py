@@ -151,6 +151,7 @@ class ReferenceUpdate(LoginRequiredMixin, UpdateView):
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
     context['all_collections'] = Collection.objects.filter(user=self.request.user)
+    context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
     return context
   
   def get_success_url(self):
@@ -167,7 +168,17 @@ class ReferenceDelete(LoginRequiredMixin, DeleteView):
   
   def get_success_url(self):
     return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
-  
-def collections_index(request):
+
+@login_required 
+def shared_collections_index(request):
   shared_collections = Collection.objects.filter(shared=True)
-  return render(request, 'collections/index.html', {'all_collections': all_collections})
+  return render(request, 'shared_collections/index.html', {'shared_collections': shared_collections})
+
+@login_required
+def shared_collections_detail(request, collection_id):
+   shared_collections = Collection.objects.filter(shared=True)
+   collection = Collection.objects.get(id=collection_id)
+   return render(request, 'shared_collections/detail.html', {
+      'collection': collection,
+      'shared_collections': shared_collections,
+   })
