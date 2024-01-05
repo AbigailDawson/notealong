@@ -15,5 +15,7 @@
       </table>
       <button class="btn btn-outline-secondary btn-md" type="submit">Submit!</button>
     </form>
+    <a class="delete-link mt-4" href="{% url 'notes_delete' collection.id note.id %}">Delete Note</a>
+    <p class="small-text mt-2"><b>Warning: </b>This action cannot be undone.</p>
   </div>
 {% endblock %}

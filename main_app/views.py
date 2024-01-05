@@ -95,6 +95,7 @@ class NoteUpdate(LoginRequiredMixin, UpdateView):
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
     context['all_collections'] = Collection.objects.filter(user=self.request.user)
+    context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
     return context
   
   def get_success_url(self):
