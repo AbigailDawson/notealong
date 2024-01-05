@@ -3,19 +3,21 @@
 {% block right %}
   <div class="d-flex flex-column">
     {% if object %}
-      <h4>Edit <span>{{ object.name }}</span></h4>
+      <h4>Edit Note</h4>
       {% else %}
         <h4 class="mb-3">Create Note</h4>
     {% endif %}
     <form action="" method="POST">
       {% csrf_token %}
-      <table>
         {{ form.media }}
-        {{ form.as_p }}
-      </table>
+        <div class="form-group">
+          {{ form.content }}
+      </div>
       <button class="btn btn-outline-secondary btn-md" type="submit">Submit!</button>
     </form>
-    <a class="delete-link mt-4" href="{% url 'notes_delete' collection.id note.id %}">Delete Note</a>
-    <p class="small-text mt-2"><b>Warning: </b>This action cannot be undone.</p>
+    {% if object %}
+      <a class="delete-link mt-4" href="{% url 'notes_delete' collection.id note.id %}">Delete Note</a>
+      <p class="small-text mt-2"><b>Warning: </b>This action cannot be undone.</p>
+    {% endif %}
   </div>
 {% endblock %}
