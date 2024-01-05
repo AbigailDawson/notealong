@@ -133,9 +133,8 @@ class ReferenceCreate(LoginRequiredMixin, CreateView):
     return context
 
   def form_valid(self, form):
-    collection = Collection.objects.get(id=self.kwargs['collection_id'])
+    collection = Collection.objects.get(id=self.kwargs['collection_id']) 
     reference_file = self.request.FILES.get('url', None)
-    form.instance.user = self.request.user
     if reference_file:
       s3 = boto3.client('s3')
       key = uuid.uuid4().hex[:6] + reference_file.name[reference_file.name.rfind('.'):]
@@ -145,12 +144,16 @@ class ReferenceCreate(LoginRequiredMixin, CreateView):
         url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
         name = self.request.POST['name']
         type = self.request.POST['type']
-        new_reference = Reference.objects.create(url=url, name=name, type=type, user=form.instance.user)
-        collection.references.add(new_reference)
+        form.instance.url = url 
+        form.instance.name = name
+        form.instance.type = type
+        form.instance.user = self.request.user
       except Exception as e:
         print('An error occurred uploading file to S3')
         print(e)
-    return super().form_valid(form)
+    response = super(ReferenceCreate, self).form_valid(form)
+    collection.references.add(self.object)
+    return response
   
 class ReferenceUpdate(LoginRequiredMixin, UpdateView):
   model = Reference
