@@ -168,7 +168,17 @@ class ReferenceDelete(LoginRequiredMixin, DeleteView):
   
   def get_success_url(self):
     return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
-  
+
+@login_required 
 def shared_collections_index(request):
   shared_collections = Collection.objects.filter(shared=True)
   return render(request, 'shared_collections/index.html', {'shared_collections': shared_collections})
+
+@login_required
+def shared_collections_detail(request, collection_id):
+   shared_collections = Collection.objects.filter(shared=True)
+   collection = Collection.objects.get(id=collection_id)
+   return render(request, 'shared_collections/detail.html', {
+      'collection': collection,
+      'shared_collections': shared_collections,
+   })
