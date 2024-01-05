@@ -171,4 +171,4 @@ class ReferenceDelete(LoginRequiredMixin, DeleteView):
   
 def shared_collections_index(request):
   shared_collections = Collection.objects.filter(shared=True)
-  return render(request, 'collections/index.html', {'shared_collections': shared_collections})
+  return render(request, 'shared_collections/index.html', {'shared_collections': shared_collections})

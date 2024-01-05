@@ -34,7 +34,10 @@
           </form>
           {% if user.is_authenticated %}
           <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{% url 'index' %}"><button class="btn btn-lg">Collections</button></a>
+              <a class="nav-link" aria-current="page" href="{% url 'index' %}"><button class="btn btn-lg">My Collections</button></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{% url 'shared_collections' %}"><button class="btn btn-lg">Browse Collections</button></a>
           </li>
           <li class="nav-item">
             <form action="{% url 'logout' %}" method="POST">
