@@ -123,15 +123,6 @@ nav.stroke ul li a:hover:after {
 
 /*  ====  COLLECTION CARDS  ====  */
 
-.collection-link {
-  color: var(--text-lt);
-  transition: 200ms ease-in-out;
-}
-
-.collection-link:hover {
-  color: var(--text);
-}
-
 .collection-card {
   outline: 1px solid var(--grey-lt);
   border: none;
@@ -142,6 +133,7 @@ nav.stroke ul li a:hover:after {
   border: none;
   outline: 2px solid var(--blu-pop);
   transform: scale(1.02);
+  cursor: pointer;
 }
 
 

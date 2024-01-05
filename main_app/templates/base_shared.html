@@ -25,15 +25,13 @@
             <div class="d-flex flex-column">
 
                 {% for collection in shared_collections %}
-                <a class="collection-link" href="{% url 'shared_collections_detail' collection.id %}">
-                    <div class="collection-card card my-2 p-3">
+                    <div class="collection-card card my-2 p-3" data-url="{% url 'detail' collection.id %}">
                         <h4 class="card-title mb-3">{{ collection.name }}</h4>
                         <p class="card-subtitle mb-1">Created by <b>{{ collection.user.username }}</b></p>
                         <p class="card-subtitle mb-1">Created on {{ collection.date_created }}</p>
                         <p class="card-subtitle">Updated on {{ collection.date_updated }}</p>
                         <p class="card-text mt-2">{{ collection.description }}</p>
                     </div>
-                </a>
                 {% endfor %}
 
             </div>     
@@ -46,5 +44,16 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const collectionCards = document.querySelectorAll('.collection-card');
+        collectionCards.forEach(function(collectionCard) {
+            collectionCard.addEventListener('click', function() {
+                const url = collectionCard.dataset.url;
+                window.location.href = url;
+            });
+        });
+    });
+</script>
 
 {% endblock %}
