@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Collection, Note, Reference
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import ReferenceForm
+from .forms import CollectionForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -54,7 +54,7 @@ def signup(request):
 
 class CollectionCreate(LoginRequiredMixin, CreateView):
   model = Collection
-  fields = ['name', 'description', 'shared']
+  form_class = CollectionForm
   
   def form_valid(self, form):
     form.instance.user = self.request.user
@@ -62,7 +62,7 @@ class CollectionCreate(LoginRequiredMixin, CreateView):
 
 class CollectionUpdate(LoginRequiredMixin, UpdateView):
    model = Collection
-   fields = ['name', 'description','shared']
+   form_class = CollectionForm
 
 class CollectionDelete(LoginRequiredMixin, DeleteView):
   model = Collection
