@@ -3,6 +3,8 @@ import boto3
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Collection, Note, Reference
+from django.db.models import Q
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import CollectionForm
 from django.contrib.auth import login
@@ -183,3 +185,24 @@ def shared_collections_detail(request, collection_id):
       'collection': collection,
       'shared_collections': shared_collections,
    })
+
+class SearchResults(LoginRequiredMixin, ListView):
+  model = Collection
+  template_name = 'main_app/search_results.html'
+  
+  def get_queryset(self):
+    query = list(self.request.GET.keys())
+    print(query)
+    if query == 'q-user':
+      print('q-user is working')
+      
+      object_list = Collection.objects.filter(Q(user=self.request.user) and
+        Q(name__icontains=query) | Q(description__icontains=query)
+      )
+      return object_list
+    elif query == ['q-shared']:
+      print('q-shared is working')
+      object_list = Collection.objects.filter(Q(shared=True) and
+        Q(name__icontains=query) | Q(description__icontains=query)
+      )
+      return object_list
