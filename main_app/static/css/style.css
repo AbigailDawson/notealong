@@ -60,6 +60,12 @@ h1, h2, h3, h4, h5 {
   outline: none;
 }
 
+/*  ====  ICONS  ====  */
+
+.icon-btn:hover {
+  color: var(--green);
+}
+
 /*  ====  NAV  ====  */
 
 .navbar-brand {
@@ -123,8 +129,6 @@ nav.stroke ul li a:hover:after {
   outline: 2px solid var(--blu-pop);
   transform: scale(1.02);
 }
-
-
 
 /*  ====  LOGIN  ====  */
 
