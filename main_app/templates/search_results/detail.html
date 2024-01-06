@@ -16,6 +16,12 @@
 <div class="d-flex flex-column">
     <h2>{{ collection.name }}</h2>
     <p>{{ collection.description }}</p>
+    {% if collection.user == user %}
+        <div class="d-flex">
+            <a role="btn" class="btn btn-outline-secondary btn-md me-3" href="{% url 'notes_create' collection.id %}">New Note</a>
+            <a role="btn" class="btn btn-outline-secondary btn-md" href="{% url 'references_create' collection.id %}">New Reference</a>
+        </div>
+    {% endif %}
     <div class="mt-4">
         <h4 class="mb-3">Notes</h4>
         
