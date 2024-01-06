@@ -6,7 +6,7 @@ from .models import Collection, Note, Reference
 from django.db.models import Q
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import CollectionForm
+from .forms import CollectionForm, NoteForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -76,7 +76,7 @@ class CollectionDelete(LoginRequiredMixin, DeleteView):
 
 class NoteCreate(LoginRequiredMixin, CreateView):
   model = Note
-  fields = '__all__'
+  form_class = NoteForm
 
   def get_success_url(self):
     return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
@@ -96,7 +96,7 @@ class NoteCreate(LoginRequiredMixin, CreateView):
 
 class NoteUpdate(LoginRequiredMixin, UpdateView):
   model = Note
-  fields = '__all__'   
+  form_class = NoteForm
   
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
