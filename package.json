@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^40.2.0",
+    "@ckeditor/ckeditor5-code-block": "^40.2.0",
     "@ckeditor/ckeditor5-theme-lark": "^40.2.0"
   }
 }

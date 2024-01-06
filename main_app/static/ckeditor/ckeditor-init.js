@@ -1,4 +1,40 @@
 /* global CKEDITOR, django */
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock';
+
+// document.addEventListener('DOMContentLoaded', function () {
+//   ClassicEditor
+//     .create(document.querySelector('#editor'), {
+//       licenseKey: '',
+//       theme: 'lark',
+//       toolbar: {
+//         items: [
+//           'heading',
+//           '|',
+//           'bold',
+//           'italic',
+//           'link',
+//           '|',
+//           'bulletedList',
+//           'numberedList',
+//           '|',
+//           'outdent',
+//           'indent',
+//           '|',
+//           'codeBlock',
+//           '|',
+//           'undo',
+//           'redo'
+//         ]
+//       },
+//       plugins: [CodeBlock],
+//       indentSequence: '    ',
+//     })
+//     .catch(error => {
+//       console.error(error);
+//     });
+// });
+
 ;(function () {
   var el = document.getElementById("ckeditor-init-script")
   if (el && !window.CKEDITOR_BASEPATH) {

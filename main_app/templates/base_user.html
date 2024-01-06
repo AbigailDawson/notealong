@@ -84,13 +84,30 @@
         });
     });
 
-    ClassicEditor
-        .create( document.querySelector( '#editor' ), {
-          theme: 'lark',
-        })
-        .catch( error => {
-            console.error( error );
-        } );
+    document.addEventListener('DOMContentLoaded', function () {
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+            licenseKey: '',
+            theme: 'lark',
+            toolbar: {
+                items: [
+                    'undo', 'redo',
+                    '|', 'heading',
+                    '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+                    '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+                    '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
+                    '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
+                    ],
+                    shouldNotGroupWhenFull: false
+            }
+            // plugins: [CodeBlock],
+            // indentSequence: '    ',
+            })
+            .catch(error => {
+            console.error(error);
+            });
+        });
+
 </script>
 
 
