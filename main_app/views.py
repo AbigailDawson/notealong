@@ -199,24 +199,26 @@ def shared_collections_detail(request, collection_id):
 class SearchResults(LoginRequiredMixin, ListView):
   model = Collection
   template_name = 'main_app/search_results.html'
+  paginate_by = 5
   
   def get_queryset(self):
     query = self.request.GET.get('q')
     type = self.request.GET.get('type')
     
     if type == 'search-user':
-      print('search-user is working')
       print(self.request.user)
       object_list = Collection.objects.filter(Q(user=self.request.user),
         Q(name__icontains=query) | Q(description__icontains=query)
       )
-      return object_list
     elif type == 'search-shared':
-      print('search-shared is working')
       object_list = Collection.objects.filter(Q(shared=True) and
         Q(name__icontains=query) | Q(description__icontains=query)
       )
-      return object_list
+    else:
+      # Default case to include all objects if no query string is provided
+      object_list = Collection.objects.all()
+
+    return object_list
     
 @login_required
 def search_results_detail(request, collection_id):
