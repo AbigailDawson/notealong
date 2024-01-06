@@ -11,6 +11,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 import os
 
 # Create your views here.
@@ -23,8 +24,14 @@ def about(request):
 
 @login_required
 def collections_index(request):
-   all_collections = Collection.objects.filter(user=request.user)
-   return render(request, 'collections/index.html', {'all_collections': all_collections})
+  all_collections = Collection.objects.filter(user=request.user)
+  paginator = Paginator(all_collections, 5)  # Show 5 contacts per page.
+  page_number = request.GET.get('page')
+  page_obj = paginator.get_page(page_number)
+  return render(request, 'collections/index.html', {
+    'all_collections': all_collections,
+    'page_obj': page_obj
+    })
 
 @login_required
 def collections_detail(request, collection_id):
@@ -185,7 +192,13 @@ class ReferenceDelete(LoginRequiredMixin, DeleteView):
 @login_required 
 def shared_collections_index(request):
   shared_collections = Collection.objects.filter(shared=True)
-  return render(request, 'shared_collections/index.html', {'shared_collections': shared_collections})
+  paginator = Paginator(shared_collections, 5)  # Show 5 contacts per page.
+  page_number = request.GET.get('page')
+  page_obj = paginator.get_page(page_number)
+  return render(request, 'shared_collections/index.html', {
+    'shared_collections': shared_collections,
+    'page_obj': page_obj
+    })
 
 @login_required
 def shared_collections_detail(request, collection_id):
