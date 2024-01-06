@@ -30,9 +30,11 @@ def collections_index(request):
 def collections_detail(request, collection_id):
    all_collections = Collection.objects.filter(user=request.user)
    collection = Collection.objects.get(id=collection_id)
+   user = request.user
    return render(request, 'collections/detail.html', {
       'collection': collection,
       'all_collections': all_collections,
+      'user': user
    })
 
 def signup(request):
@@ -219,6 +221,8 @@ class SearchResults(LoginRequiredMixin, ListView):
 @login_required
 def search_results_detail(request, collection_id):
   collection = Collection.objects.get(id=collection_id)
+  user = request.user
   return render(request, 'search_results/detail.html', {
     'collection': collection,
+    'user': user
   })
