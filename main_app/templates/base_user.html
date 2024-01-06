@@ -83,6 +83,14 @@
             });
         });
     });
+
+    ClassicEditor
+        .create( document.querySelector( '#editor' ), {
+          theme: 'lark',
+        })
+        .catch( error => {
+            console.error( error );
+        } );
 </script>
 
 

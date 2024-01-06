@@ -14,6 +14,10 @@
   --drk-blu: #162a2c;
 }
 
+#editor {
+  height: 400px;  /* Adjust the height as needed */
+}
+
 /*  ====  GLOBAL  ====  */
 
 body {

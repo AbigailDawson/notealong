@@ -11,7 +11,7 @@
       {% csrf_token %}
         {{ form.media }}
         <div class="form-group">
-          {{ form.content }}
+          <div id="editor">{{ form.content }}</div>
       </div>
       <button class="btn btn-outline-secondary btn-md" type="submit">Submit!</button>
     </form>
@@ -21,3 +21,4 @@
     {% endif %}
   </div>
 {% endblock %}
+
