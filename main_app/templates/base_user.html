@@ -29,6 +29,7 @@
             <div class="d-flex flex-column">
                 <a href="?sort_by=date_created" {% if sort_by == 'date_created' %} class="selected" {% endif %}>Sort by Date Created (newest first)</a>
                 <a href="?sort_by=date_updated" {% if sort_by == 'date_updated' %} class="selected" {% endif %}>Sort by Date Updated (newest first)</a>
+
                 {% for collection in page_obj %}
                     <div class="collection-card card my-2 p-3" data-url="{% url 'detail' collection.id %}">
                         <div class="d-flex justify-content-between">
@@ -48,9 +49,11 @@
                             <a href="?page={{ page_obj.previous_page_number }}">previous</a>
                         {% endif %}
                 
+                        {% if page_obj.has_next or page_obj.has_previous %}
                         <span class="current">
                             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                         </span>
+                        {% endif %}
                 
                         {% if page_obj.has_next %}
                             <a href="?page={{ page_obj.next_page_number }}">next</a>
