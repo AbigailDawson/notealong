@@ -4,6 +4,14 @@
 
 <div class="content-container container mt-4 py-4">
     <h4 class="mb-3">References</h4>
+
+    <form action="{% url 'references_create' %}" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{ ref_form.as_p }}
+        <input type="file" name="url">
+        <button class="btn btn-outline-secondary btn-md" type="submit">Submit!</button>
+    </form>
+
         {% if references.count %}
             {% for reference in references %}
             <div class="card my-2 p-3">

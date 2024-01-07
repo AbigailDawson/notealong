@@ -6,7 +6,7 @@ from .models import Collection, Note, Reference
 from django.db.models import Q
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import CollectionForm, NoteForm
+from .forms import CollectionForm, NoteForm, ReferenceForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -33,7 +33,7 @@ def collections_index(request):
   elif sort_by == 'date_updated':
     all_collections = all_collections.order_by('-date_updated')
 
-  paginator = Paginator(all_collections, 5)  # 5 contacts per page
+  paginator = Paginator(all_collections, 5)  # 5 collections per page
   page_number = request.GET.get('page')
   page_obj = paginator.get_page(page_number)
   return render(request, 'collections/index.html', {
@@ -105,7 +105,7 @@ class NoteCreate(LoginRequiredMixin, CreateView):
 
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
-    context['all_collections'] = Collection.objects.filter(user=self.request.user)
+    context['page_obj'] = Collection.objects.filter(user=self.request.user)
     context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
     return context
   
@@ -122,7 +122,7 @@ class NoteUpdate(LoginRequiredMixin, UpdateView):
   
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
-    context['all_collections'] = Collection.objects.filter(user=self.request.user)
+    context['page_obj'] = Collection.objects.filter(user=self.request.user)
     context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
     return context
   
@@ -143,11 +143,13 @@ class NoteDelete(LoginRequiredMixin, DeleteView):
 
 class ReferenceIndex(LoginRequiredMixin, ListView):
   model = Reference
+  ref_form = ReferenceForm
   template_name = 'main_app/references_index.html'
   
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
     context['references'] = Reference.objects.filter(user=self.request.user)
+    context['ref_form'] = ReferenceForm()
     return context
 
 class ReferenceCreate(LoginRequiredMixin, CreateView):
@@ -155,16 +157,20 @@ class ReferenceCreate(LoginRequiredMixin, CreateView):
   fields = ['name', 'type']
 
   def get_success_url(self):
-    return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
+    print(self.kwargs)
+    if self.kwargs:
+      return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
+    else:
+      return reverse('references_index')
 
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
-    context['all_collections'] = Collection.objects.filter(user=self.request.user)
+    context['page_obj'] = Collection.objects.filter(user=self.request.user)
     context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
     return context
 
   def form_valid(self, form):
-    collection = Collection.objects.get(id=self.kwargs['collection_id']) 
+    
     reference_file = self.request.FILES.get('url', None)
     if reference_file:
       s3 = boto3.client('s3')
@@ -183,7 +189,15 @@ class ReferenceCreate(LoginRequiredMixin, CreateView):
         print('An error occurred uploading file to S3')
         print(e)
     response = super(ReferenceCreate, self).form_valid(form)
-    collection.references.add(self.object)
+
+    if self.kwargs.get('collection_id'):
+      print('we have a collection id!')
+      collection = Collection.objects.get(id=self.kwargs['collection_id']) 
+      collection.references.add(self.object)
+    else:
+      print('we don\'t have a collection id!')
+      return response
+
     return response
   
 class ReferenceUpdate(LoginRequiredMixin, UpdateView):
@@ -192,7 +206,7 @@ class ReferenceUpdate(LoginRequiredMixin, UpdateView):
   
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
-    context['all_collections'] = Collection.objects.filter(user=self.request.user)
+    context['page_obj'] = Collection.objects.filter(user=self.request.user)
     context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
     return context
   
