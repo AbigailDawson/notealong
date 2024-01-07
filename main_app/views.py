@@ -157,7 +157,6 @@ class ReferenceCreate(LoginRequiredMixin, CreateView):
   fields = ['name', 'type']
 
   def get_success_url(self):
-    print(self.kwargs)
     if self.kwargs:
       return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
     else:
@@ -191,27 +190,41 @@ class ReferenceCreate(LoginRequiredMixin, CreateView):
     response = super(ReferenceCreate, self).form_valid(form)
 
     if self.kwargs.get('collection_id'):
-      print('we have a collection id!')
       collection = Collection.objects.get(id=self.kwargs['collection_id']) 
       collection.references.add(self.object)
     else:
-      print('we don\'t have a collection id!')
       return response
 
     return response
   
 class ReferenceUpdate(LoginRequiredMixin, UpdateView):
   model = Reference
-  fields = ['name', 'type']   
-  
-  def get_context_data(self, **kwargs):
+  fields = ['name', 'type']
+
+  def get_context_data(self, **kwargs): 
     context = super().get_context_data(**kwargs)
     context['page_obj'] = Collection.objects.filter(user=self.request.user)
     context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
+    
     return context
   
   def get_success_url(self):
     return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
+
+
+class ReferencePageUpdate(LoginRequiredMixin,UpdateView):
+  model =  Reference
+  fields = ['name','type']
+  template_name = 'main_app/references_update.html'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['references'] = Reference.objects.filter(user=self.request.user)
+    return context
+ 
+  def get_success_url(self):
+    return reverse('references_index')
+
 
 class ReferenceDelete(LoginRequiredMixin, DeleteView):
   model = Reference  
