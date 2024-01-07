@@ -25,12 +25,20 @@ def about(request):
 @login_required
 def collections_index(request):
   all_collections = Collection.objects.filter(user=request.user)
-  paginator = Paginator(all_collections, 5)  # Show 5 contacts per page.
+
+  sort_by = request.GET.get('sort_by', 'date_created')  # default to date_created
+  if sort_by == 'date_created':
+    all_collections = all_collections.order_by('-date_created')
+  elif sort_by == 'date_updated':
+    all_collections = all_collections.order_by('-date_updated')
+
+  paginator = Paginator(all_collections, 5)  # 5 contacts per page
   page_number = request.GET.get('page')
   page_obj = paginator.get_page(page_number)
   return render(request, 'collections/index.html', {
-    'all_collections': all_collections,
-    'page_obj': page_obj
+    'all_collections': page_obj, # pass in the paginated list
+    'page_obj': page_obj,
+    'sort_by': sort_by,
     })
 
 @login_required
@@ -192,12 +200,20 @@ class ReferenceDelete(LoginRequiredMixin, DeleteView):
 @login_required 
 def shared_collections_index(request):
   shared_collections = Collection.objects.filter(shared=True)
-  paginator = Paginator(shared_collections, 5)  # Show 5 contacts per page.
+
+  sort_by = request.GET.get('sort_by', 'date_created') 
+  if sort_by == 'date_created':
+    shared_collections = shared_collections.order_by('-date_created')
+  elif sort_by == 'date_updated':
+    shared_collections = shared_collections.order_by('-date_updated')
+
+  paginator = Paginator(shared_collections, 5)
   page_number = request.GET.get('page')
   page_obj = paginator.get_page(page_number)
-  return render(request, 'shared_collections/index.html', {
-    'shared_collections': shared_collections,
-    'page_obj': page_obj
+  return render(request, 'collections/index.html', {
+    'shared_collections': page_obj, 
+    'page_obj': page_obj,
+    'sort_by': sort_by,
     })
 
 @login_required

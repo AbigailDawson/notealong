@@ -29,8 +29,9 @@
         <div class="left-col col-12 col-lg-4">
             {% block left %}
             <div class="d-flex flex-column">
-
-                {% for collection in all_collections %}
+                <a href="?sort_by=date_created" {% if sort_by == 'date_created' %} class="selected" {% endif %}>Sort by Date Created (newest first)</a>
+                <a href="?sort_by=date_updated" {% if sort_by == 'date_updated' %} class="selected" {% endif %}>Sort by Date Updated (newest first)</a>
+                {% for collection in page_obj %}
                     <div class="collection-card card my-2 p-3" data-url="{% url 'detail' collection.id %}">
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title mb-3">{{ collection.name }}</h4>
