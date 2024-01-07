@@ -33,8 +33,8 @@
                     <div class="collection-card card my-2 p-3" data-url="{% url 'shared_collections_detail' collection.id %}">
                         <h4 class="card-title mb-3">{{ collection.name }}</h4>
                         <p class="card-subtitle mb-1">Created by <b>{{ collection.user.username }}</b></p>
-                        <p class="card-subtitle mb-1">Created on {{ collection.date_created }}</p>
-                        <p class="card-subtitle">Updated on {{ collection.date_updated }}</p>
+                        <p class="card-subtitle mb-1">Created on {{ collection.date_created|date:"M j, Y" }}</p>
+                        <p class="card-subtitle">Updated on {{ collection.date_updated|date:"M j, Y" }}</p>
                         <p class="card-text mt-2">{{ collection.description }}</p>
                     </div>
                 {% endfor %}

@@ -47,4 +47,7 @@ class Collection(models.Model):
   def get_absolute_url(self):
     return reverse('detail', kwargs={'collection_id': self.id})
 
+  def save(self, *args, **kwargs):
+    self.date_updated = timezone.now()
+    super().save(*args, **kwargs)
   
