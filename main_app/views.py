@@ -43,14 +43,26 @@ def collections_index(request):
 
 @login_required
 def collections_detail(request, collection_id):
-   all_collections = Collection.objects.filter(user=request.user)
-   collection = Collection.objects.get(id=collection_id)
-   user = request.user
-   return render(request, 'collections/detail.html', {
-      'collection': collection,
-      'all_collections': all_collections,
-      'user': user
-   })
+  all_collections = Collection.objects.filter(user=request.user)
+  collection = Collection.objects.get(id=collection_id)
+  user = request.user
+
+  sort_by = request.GET.get('sort_by', 'date_created') 
+  if sort_by == 'date_created':
+    all_collections = all_collections.order_by('-date_created')
+  elif sort_by == 'date_updated':
+    all_collections = all_collections.order_by('-date_updated')
+
+  paginator = Paginator(all_collections, 5)
+  page_number = request.GET.get('page')
+  page_obj = paginator.get_page(page_number)
+  return render(request, 'collections/detail.html', {
+    'collection': collection,
+    'all_collections': page_obj, 
+    'user': user,
+    'page_obj': page_obj,
+    'sort_by': sort_by,
+    })
 
 def signup(request):
   error_message = ''
@@ -210,7 +222,7 @@ def shared_collections_index(request):
   paginator = Paginator(shared_collections, 5)
   page_number = request.GET.get('page')
   page_obj = paginator.get_page(page_number)
-  return render(request, 'collections/index.html', {
+  return render(request, 'shared_collections/index.html', {
     'shared_collections': page_obj, 
     'page_obj': page_obj,
     'sort_by': sort_by,
@@ -218,12 +230,24 @@ def shared_collections_index(request):
 
 @login_required
 def shared_collections_detail(request, collection_id):
-   shared_collections = Collection.objects.filter(shared=True)
-   collection = Collection.objects.get(id=collection_id)
-   return render(request, 'shared_collections/detail.html', {
-      'collection': collection,
-      'shared_collections': shared_collections,
-   })
+  shared_collections = Collection.objects.filter(shared=True)
+  collection = Collection.objects.get(id=collection_id)
+
+  sort_by = request.GET.get('sort_by', 'date_created') 
+  if sort_by == 'date_created':
+    shared_collections = shared_collections.order_by('-date_created')
+  elif sort_by == 'date_updated':
+    shared_collections = shared_collections.order_by('-date_updated')
+
+  paginator = Paginator(shared_collections, 5)
+  page_number = request.GET.get('page')
+  page_obj = paginator.get_page(page_number)
+  return render(request, 'shared_collections/detail.html', {
+    'collection': collection,
+    'shared_collections': page_obj, 
+    'page_obj': page_obj,
+    'sort_by': sort_by,
+    })
 
 class SearchResults(LoginRequiredMixin, ListView):
   model = Collection
@@ -233,6 +257,7 @@ class SearchResults(LoginRequiredMixin, ListView):
   def get_queryset(self):
     query = self.request.GET.get('q')
     type = self.request.GET.get('type')
+    sort_by = self.request.GET.get('sort_by', 'date_created')  # default to date_created
     
     if type == 'search-user':
       print(self.request.user)
@@ -247,6 +272,10 @@ class SearchResults(LoginRequiredMixin, ListView):
       # Default case to include all objects if no query string is provided
       object_list = Collection.objects.all()
 
+    if sort_by == 'date_created':
+      object_list = object_list.order_by('-date_created')
+    elif sort_by == 'date_updated':
+      object_list = object_list.order_by('-date_updated')
     return object_list
     
 @login_required

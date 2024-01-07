@@ -27,6 +27,8 @@
         <div class="left-col col-12 col-lg-4">
             {% block left %}
             <div class="d-flex flex-column">
+                <a href="?q={{ request.GET.q }}&type={{ request.GET.type }}&sort_by=date_created" {% if sort_by == 'date_created' %} class="selected" {% endif %}>Sort by Date Created (newest first)</a>
+                <a href="?q={{ request.GET.q }}&type={{ request.GET.type }}&sort_by=date_updated" {% if sort_by == 'date_updated' %} class="selected" {% endif %}>Sort by Date Updated (newest first)</a>
 
                 {% for collection in object_list %}
                     <div class="collection-card card my-2 p-3" data-url="{% url 'search_results_detail' collection.id %}">
