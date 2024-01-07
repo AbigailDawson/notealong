@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'tinymce',
 ]
 
+
 TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
     'width': 940,

@@ -6,6 +6,7 @@
   --sky-blu: #d6e0e2;
   --blu-pop: #c1e0e6;
   --blu-pop-lt: #d6f3f9;
+  --blu-pop-bright: #3faac0;
   --cream: #f4efe6;
   --green: #5e6c5b;
   --off-wht: #fefcf6;
@@ -66,8 +67,12 @@ h1, h2, h3, h4, h5 {
 
 /*  ====  ICONS  ====  */
 
-.icon-btn:hover {
-  color: var(--green);
+.edit-icon-btn {
+  font-size: 20px;
+}
+
+.edit-icon-btn:hover {
+  color: var(--blu-pop-bright);
 }
 
 /*  ====  FORMS  ====  */
