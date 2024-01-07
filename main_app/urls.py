@@ -15,6 +15,7 @@ urlpatterns = [
     path('collections/<int:collection_id>/notes/<int:pk>/delete/', views.NoteDelete.as_view(), name='notes_delete'),
     path('references/', views.ReferenceIndex.as_view(), name='references_index'),
     path('references/create/', views.ReferenceCreate.as_view(), name='references_create'),
+    path('references/<int:pk>/update/',views.ReferencePageUpdate.as_view(),name='references_page_update'),
     path('collections/<int:collection_id>/references/create/', views.ReferenceCreate.as_view(), name='references_create'),
     path('collections/<int:collection_id>/references/<int:pk>/update/', views.ReferenceUpdate.as_view(), name='references_update'),
     path('collections/<int:collection_id>/references/<int:pk>/delete/',views.ReferenceDelete.as_view(), name='references_delete'),

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content-container container mt-4 py-4">
+    <h4 class="mb-3">References</h4>
+
+    <form action="" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="file" name="url">
+        <button class="btn btn-outline-secondary btn-md" type="submit">Submit!</button>
+    </form>
+</div>
+
+{% endblock %}
