@@ -60,6 +60,16 @@
         </div>
         <div class="right-col col-12 col-lg-8">
             {% block right %}
+            {% load static %}
+            <div class="welcome-right-container">
+                <div class="image-wrapper mt-5">
+                    <img src="{% static 'images/logo-wht-subtitle.png' %}" alt="" style="width: 500px">
+                </div>
+                <div class="welcome-box">
+                    <h2 class="text-center">You're not alone!</h2>
+                    <h4 class="text-center mt-4">Join a rich community of like-minded coding enthusiasts. Dive in by browsing all collections shared by other users, or search for a specific topic of interest!</h4>
+                </div>
+            </div>
             {% endblock %}
         </div>
     </div>

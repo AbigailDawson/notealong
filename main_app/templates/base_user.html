@@ -64,6 +64,16 @@
         </div>
         <div class="right-col col-12 col-lg-8">
             {% block right %}
+            {% load static %}
+            <div class="welcome-right-container">
+                <div class="image-wrapper mt-5">
+                    <img src="{% static 'images/logo-wht-subtitle.png' %}" alt="" style="width: 500px">
+                </div>
+                <div class="welcome-box">
+                    <h2 class="text-center">Welcome back, {{ user.username }}!</h2>
+                    <h4 class="text-center mt-4">Keep up the good work! Continue on your journey to coding mastery by selecting a collection or <a class="visual-link" href="{% url 'collections_create' %}">adding a new one.</a></h4>
+                </div>
+            </div>
             {% endblock %}
         </div>
     </div>

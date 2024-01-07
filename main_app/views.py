@@ -25,6 +25,7 @@ def about(request):
 @login_required
 def collections_index(request):
   all_collections = Collection.objects.filter(user=request.user)
+  user = request.user
 
   sort_by = request.GET.get('sort_by', 'date_created')  # default to date_created
   if sort_by == 'date_created':
@@ -37,6 +38,7 @@ def collections_index(request):
   page_obj = paginator.get_page(page_number)
   return render(request, 'collections/index.html', {
     'all_collections': page_obj, # pass in the paginated list
+    'user': user,
     'page_obj': page_obj,
     'sort_by': sort_by,
     })

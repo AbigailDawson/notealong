@@ -35,6 +35,15 @@ a:hover {
   color: var(--green);
 }
 
+.visual-link {
+  color: var(--blu-pop-bright);
+  font-weight: 800;
+}
+
+.visual-link:hover {
+  color: var(--drk-blu);
+}
+
 h1, h2, h3, h4, h5 {
   font-family: var(--headings-font);
 }
@@ -151,7 +160,8 @@ nav.stroke ul li a:hover:after {
 /*  ====  LOGIN  ====  */
 
 .login-left-container,
-.login-right-container {
+.login-right-container,
+.welcome-right-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -164,9 +174,25 @@ nav.stroke ul li a:hover:after {
   border-radius: 50px;
 }
 
-.login-box {
+.login-box,
+.welcome-box {
   width: 400px;
   border-radius: 20px;
+  padding: 20px;
+}
+
+/*  ====  WELCOME  ====  */
+
+.welcome-right-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  height: 100%;
+}
+
+.welcome-box {
+  width: 500px;
   padding: 20px;
 }
 
