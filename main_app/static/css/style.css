@@ -67,11 +67,13 @@ h1, h2, h3, h4, h5 {
 
 /*  ====  ICONS  ====  */
 
-.edit-icon-btn {
+.edit-icon-btn,
+.search-btn {
   font-size: 20px;
 }
 
-.edit-icon-btn:hover {
+.edit-icon-btn:hover,
+.search-btn:hover {
   color: var(--blu-pop-bright);
 }
 
