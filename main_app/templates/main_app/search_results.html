@@ -27,6 +27,8 @@
         <div class="left-col col-12 col-lg-4">
             {% block left %}
             <div class="d-flex flex-column">
+                <a href="?q={{ request.GET.q }}&type={{ request.GET.type }}&sort_by=date_created" {% if sort_by == 'date_created' %} class="selected" {% endif %}>Sort by Date Created (newest first)</a>
+                <a href="?q={{ request.GET.q }}&type={{ request.GET.type }}&sort_by=date_updated" {% if sort_by == 'date_updated' %} class="selected" {% endif %}>Sort by Date Updated (newest first)</a>
 
                 {% for collection in object_list %}
                     <div class="collection-card card my-2 p-3" data-url="{% url 'search_results_detail' collection.id %}">
@@ -37,6 +39,25 @@
                         <p class="card-text mt-2">{{ collection.description }}</p>
                     </div>
                 {% endfor %}
+
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?q={{ request.GET.q }}&type={{ request.GET.type }}&page=1">&laquo; first</a>
+                            <a href="?q={{ request.GET.q }}&type={{ request.GET.type }}&page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+                    
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                        </span>
+                    
+                        {% if page_obj.has_next %}
+                            <a href="?q={{ request.GET.q }}&type={{ request.GET.type }}&page={{ page_obj.next_page_number }}"> | next</a>
+                            <a href="?q={{ request.GET.q }}&type={{ request.GET.type }}&page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+
             </div>     
             {% endblock %}
         </div>

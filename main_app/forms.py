@@ -1,6 +1,7 @@
 from django.forms import ModelForm, Textarea
-from ckeditor.widgets import CKEditorWidget
-from .models import Reference, Collection
+# from ckeditor.widgets import CKEditorWidget
+from .models import Reference, Collection, Note
+from tinymce.widgets import TinyMCE
 
 class CollectionForm(ModelForm):
     class Meta:
@@ -17,3 +18,9 @@ class ReferenceForm(ModelForm):
     class Meta:
         model = Reference
         fields = ['name', 'type']
+
+class NoteForm(ModelForm):
+    class Meta:
+        model = Note
+        fields = '__all__'
+        widgets = {'content': TinyMCE(attrs={'cols': 20, 'rows': 10})}

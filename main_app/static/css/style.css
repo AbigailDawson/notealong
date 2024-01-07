@@ -6,12 +6,17 @@
   --sky-blu: #d6e0e2;
   --blu-pop: #c1e0e6;
   --blu-pop-lt: #d6f3f9;
+  --blu-pop-bright: #3faac0;
   --cream: #f4efe6;
   --green: #5e6c5b;
   --off-wht: #fefcf6;
   --grey-lt: #b2b2b2;
   --grey: #686867;
   --drk-blu: #162a2c;
+}
+
+#editor {
+  height: 400px;  /* Adjust the height as needed */
 }
 
 /*  ====  GLOBAL  ====  */
@@ -28,6 +33,15 @@ a {
 
 a:hover {
   color: var(--green);
+}
+
+.visual-link {
+  color: var(--blu-pop-bright);
+  font-weight: 800;
+}
+
+.visual-link:hover {
+  color: var(--drk-blu);
 }
 
 h1, h2, h3, h4, h5 {
@@ -62,8 +76,14 @@ h1, h2, h3, h4, h5 {
 
 /*  ====  ICONS  ====  */
 
-.icon-btn:hover {
-  color: var(--green);
+.edit-icon-btn,
+.search-btn {
+  font-size: 20px;
+}
+
+.edit-icon-btn:hover,
+.search-btn:hover {
+  color: var(--blu-pop-bright);
 }
 
 /*  ====  FORMS  ====  */
@@ -140,7 +160,8 @@ nav.stroke ul li a:hover:after {
 /*  ====  LOGIN  ====  */
 
 .login-left-container,
-.login-right-container {
+.login-right-container,
+.welcome-right-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -153,9 +174,25 @@ nav.stroke ul li a:hover:after {
   border-radius: 50px;
 }
 
-.login-box {
+.login-box,
+.welcome-box {
   width: 400px;
   border-radius: 20px;
+  padding: 20px;
+}
+
+/*  ====  WELCOME  ====  */
+
+.welcome-right-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  height: 100%;
+}
+
+.welcome-box {
+  width: 500px;
   padding: 20px;
 }
 

@@ -6,11 +6,12 @@ from .models import Collection, Note, Reference
 from django.db.models import Q
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import CollectionForm
+from .forms import CollectionForm, NoteForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 import os
 
 # Create your views here.
@@ -23,19 +24,47 @@ def about(request):
 
 @login_required
 def collections_index(request):
-   all_collections = Collection.objects.filter(user=request.user)
-   return render(request, 'collections/index.html', {'all_collections': all_collections})
+  all_collections = Collection.objects.filter(user=request.user)
+  user = request.user
+
+  sort_by = request.GET.get('sort_by', 'date_created')  # default to date_created
+  if sort_by == 'date_created':
+    all_collections = all_collections.order_by('-date_created')
+  elif sort_by == 'date_updated':
+    all_collections = all_collections.order_by('-date_updated')
+
+  paginator = Paginator(all_collections, 5)  # 5 contacts per page
+  page_number = request.GET.get('page')
+  page_obj = paginator.get_page(page_number)
+  return render(request, 'collections/index.html', {
+    'all_collections': page_obj, # pass in the paginated list
+    'user': user,
+    'page_obj': page_obj,
+    'sort_by': sort_by,
+    })
 
 @login_required
 def collections_detail(request, collection_id):
-   all_collections = Collection.objects.filter(user=request.user)
-   collection = Collection.objects.get(id=collection_id)
-   user = request.user
-   return render(request, 'collections/detail.html', {
-      'collection': collection,
-      'all_collections': all_collections,
-      'user': user
-   })
+  all_collections = Collection.objects.filter(user=request.user)
+  collection = Collection.objects.get(id=collection_id)
+  user = request.user
+
+  sort_by = request.GET.get('sort_by', 'date_created') 
+  if sort_by == 'date_created':
+    all_collections = all_collections.order_by('-date_created')
+  elif sort_by == 'date_updated':
+    all_collections = all_collections.order_by('-date_updated')
+
+  paginator = Paginator(all_collections, 5)
+  page_number = request.GET.get('page')
+  page_obj = paginator.get_page(page_number)
+  return render(request, 'collections/detail.html', {
+    'collection': collection,
+    'all_collections': page_obj, 
+    'user': user,
+    'page_obj': page_obj,
+    'sort_by': sort_by,
+    })
 
 def signup(request):
   error_message = ''
@@ -69,7 +98,7 @@ class CollectionDelete(LoginRequiredMixin, DeleteView):
 
 class NoteCreate(LoginRequiredMixin, CreateView):
   model = Note
-  fields = '__all__'
+  form_class = NoteForm
 
   def get_success_url(self):
     return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
@@ -89,7 +118,7 @@ class NoteCreate(LoginRequiredMixin, CreateView):
 
 class NoteUpdate(LoginRequiredMixin, UpdateView):
   model = Note
-  fields = '__all__'   
+  form_class = NoteForm
   
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
@@ -185,38 +214,71 @@ class ReferenceDelete(LoginRequiredMixin, DeleteView):
 @login_required 
 def shared_collections_index(request):
   shared_collections = Collection.objects.filter(shared=True)
-  return render(request, 'shared_collections/index.html', {'shared_collections': shared_collections})
+
+  sort_by = request.GET.get('sort_by', 'date_created') 
+  if sort_by == 'date_created':
+    shared_collections = shared_collections.order_by('-date_created')
+  elif sort_by == 'date_updated':
+    shared_collections = shared_collections.order_by('-date_updated')
+
+  paginator = Paginator(shared_collections, 5)
+  page_number = request.GET.get('page')
+  page_obj = paginator.get_page(page_number)
+  return render(request, 'shared_collections/index.html', {
+    'shared_collections': page_obj, 
+    'page_obj': page_obj,
+    'sort_by': sort_by,
+    })
 
 @login_required
 def shared_collections_detail(request, collection_id):
-   shared_collections = Collection.objects.filter(shared=True)
-   collection = Collection.objects.get(id=collection_id)
-   return render(request, 'shared_collections/detail.html', {
-      'collection': collection,
-      'shared_collections': shared_collections,
-   })
+  shared_collections = Collection.objects.filter(shared=True)
+  collection = Collection.objects.get(id=collection_id)
+
+  sort_by = request.GET.get('sort_by', 'date_created') 
+  if sort_by == 'date_created':
+    shared_collections = shared_collections.order_by('-date_created')
+  elif sort_by == 'date_updated':
+    shared_collections = shared_collections.order_by('-date_updated')
+
+  paginator = Paginator(shared_collections, 5)
+  page_number = request.GET.get('page')
+  page_obj = paginator.get_page(page_number)
+  return render(request, 'shared_collections/detail.html', {
+    'collection': collection,
+    'shared_collections': page_obj, 
+    'page_obj': page_obj,
+    'sort_by': sort_by,
+    })
 
 class SearchResults(LoginRequiredMixin, ListView):
   model = Collection
   template_name = 'main_app/search_results.html'
+  paginate_by = 5
   
   def get_queryset(self):
     query = self.request.GET.get('q')
     type = self.request.GET.get('type')
+    sort_by = self.request.GET.get('sort_by', 'date_created')  # default to date_created
     
     if type == 'search-user':
-      print('search-user is working')
       print(self.request.user)
       object_list = Collection.objects.filter(Q(user=self.request.user),
         Q(name__icontains=query) | Q(description__icontains=query)
       )
-      return object_list
     elif type == 'search-shared':
-      print('search-shared is working')
       object_list = Collection.objects.filter(Q(shared=True) and
         Q(name__icontains=query) | Q(description__icontains=query)
       )
-      return object_list
+    else:
+      # Default case to include all objects if no query string is provided
+      object_list = Collection.objects.all()
+
+    if sort_by == 'date_created':
+      object_list = object_list.order_by('-date_created')
+    elif sort_by == 'date_updated':
+      object_list = object_list.order_by('-date_updated')
+    return object_list
     
 @login_required
 def search_results_detail(request, collection_id):

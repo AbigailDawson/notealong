@@ -9,14 +9,12 @@
             <h4>Shared Collections</h4>
             <div class="right-btns d-flex flex-row">
                 <form action="{% url 'search_results' %}" method="GET" class="d-flex" role="search">
-                    <input name="q" class="form-control me-2" type="text" placeholder="Search shared collections" aria-label="Search">
                     <select name="type">
-                        <option value="search-user">Search My Collections</option>
-                        <option value="search-shared">Search All Collections</option>
+                        <option value="search-user">My Collections</option>
+                        <option value="search-shared">All Collections</option>
                     </select>
-                    <button class="btn search-btn" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                      </svg></button>
+                    <input name="q" class="form-control ms-2" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn search-btn" type="submit"><i class="bi bi-search"></i></button>
                 </form>
             </div>
         </div>
@@ -27,22 +25,51 @@
         <div class="left-col col-12 col-lg-4">
             {% block left %}
             <div class="d-flex flex-column">
-
-                {% for collection in shared_collections %}
+                <a href="?sort_by=date_created" {% if sort_by == 'date_created' %} class="selected" {% endif %}>Sort by Date Created (newest first)</a>
+                <a href="?sort_by=date_updated" {% if sort_by == 'date_updated' %} class="selected" {% endif %}>Sort by Date Updated (newest first)</a>
+                {% for collection in page_obj %}
                     <div class="collection-card card my-2 p-3" data-url="{% url 'shared_collections_detail' collection.id %}">
                         <h4 class="card-title mb-3">{{ collection.name }}</h4>
                         <p class="card-subtitle mb-1">Created by <b>{{ collection.user.username }}</b></p>
-                        <p class="card-subtitle mb-1">Created on {{ collection.date_created }}</p>
-                        <p class="card-subtitle">Updated on {{ collection.date_updated }}</p>
+                        <p class="card-subtitle mb-1">Created on {{ collection.date_created|date:"M j, Y" }}</p>
+                        <p class="card-subtitle">Updated on {{ collection.date_updated|date:"M j, Y" }}</p>
                         <p class="card-text mt-2">{{ collection.description }}</p>
                     </div>
                 {% endfor %}
+
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                        </span>
+                
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
 
             </div>     
             {% endblock %}
         </div>
         <div class="right-col col-12 col-lg-8">
             {% block right %}
+            {% load static %}
+            <div class="welcome-right-container">
+                <div class="image-wrapper mt-5">
+                    <img src="{% static 'images/logo-wht-subtitle.png' %}" alt="" style="width: 500px">
+                </div>
+                <div class="welcome-box">
+                    <h2 class="text-center">You're not alone!</h2>
+                    <h4 class="text-center mt-4">Join a rich community of like-minded coding enthusiasts. Dive in by browsing all collections shared by other users, or search for a specific topic of interest!</h4>
+                </div>
+            </div>
             {% endblock %}
         </div>
     </div>
