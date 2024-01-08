@@ -3,13 +3,13 @@
 {% block left %}
   <div class="d-flex flex-column">
     {% if object %}
-      <h4>Edit <span>{{ object.name }}</span></h4>
+      <h4 class="collection-detail-title">Edit <span style="color: var(--blu-pop-med)">{{ object.name }}</span></h4>
       {% else %}
-        <h4 class="mb-3">Create Collection</h4>
+        <h4 class="collection-detail-title mb-1">Create Collection</h4>
     {% endif %}
     <form action="" method="POST">
       {% csrf_token %}
-      <div class="form-group d-flex flex-column mt-3 mb-3">
+      <div class="form-group d-flex flex-column mt-1 mb-3">
         <label class="mb-2" for="{{ form.name.id_for_label }}">Name</label>
         {{ form.name }}
       </div>

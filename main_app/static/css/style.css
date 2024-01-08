@@ -144,6 +144,10 @@ nav.stroke ul li a:hover:after {
 
 /*  ====  FORMS  ====  */
 
+form * {
+  font-size: 14px;
+}
+
 .small-text {
   font-size: 12px;
 }
