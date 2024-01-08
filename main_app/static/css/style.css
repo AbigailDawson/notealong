@@ -340,9 +340,9 @@ form * {
   
   .left-col,
   .right-col {
-    /* padding: 0px 40px 0px 40px; */
+    /* padding: 0px 40px 0px 40px;
     height: 300px;
-    overflow-y: auto;
+    overflow-y: auto; */
   }
 }
 
@@ -352,8 +352,8 @@ form * {
   .left-col,
   .right-col {
     /* padding: 0px 40px 0px 40px; */
-    height: 300px;
-    overflow-y: auto;
+    /* height: 300px;
+    overflow-y: auto; */
   }
 }
 
@@ -363,8 +363,8 @@ form * {
   .left-col,
   .right-col {
     /* padding: 20px 40px 20px 40px; */
-    height: calc(70vh - 40px);
-    overflow-y: auto;
+    /* height: calc(70vh - 40px);
+    overflow-y: auto; */
   }
 }
 
