@@ -6,8 +6,10 @@
     <h2 class="collection-detail-title">{{ collection.name }}</h2>
     <p class="collection-detail-desc">{{ collection.description }}</p>
     <div class="d-flex">
-        <a role="btn" class="btn btn-blu me-3" href="{% url 'notes_create' collection.id %}">New Note</a>
-        <a role="btn" class="btn btn-blu" href="{% url 'references_create' collection.id %}">New Reference</a>
+        {% if collection.user == user %}
+            <a role="btn" class="btn btn-blu me-3" href="{% url 'notes_create' collection.id %}">New Note</a>
+            <a role="btn" class="btn btn-blu" href="{% url 'references_create' collection.id %}">New Reference</a>
+        {% endif %}
     </div>
     
     <div class="mt-4">
@@ -22,7 +24,9 @@
                     {% endautoescape %}
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a href="{% url 'notes_update' collection.id note.id %}"><i class="bi bi-pencil-square"></i></a>
+                    {% if collection.user == user %}
+                        <a href="{% url 'notes_update' collection.id note.id %}"><i class="bi bi-pencil-square"></i></a>
+                    {% endif %}
                 </div>
             </div>
                 
@@ -33,13 +37,29 @@
     </div>
     <div class="mt-4">
         <h4 class="collection-detail-title mb-3">References</h4>
+        <form  action="{% url 'assoc_ref' collection.id %}" method="POST">
+            {% csrf_token %}
+            <select class="form-control form-control-md" name="selected_ref">
+                <option value="">-- Select</option>
+                {% if excluded_references.count %}
+                    {% for reference in excluded_references.all %}
+                        <option value="{{ reference.id }}">{{ reference.name }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option>No refererences available to add</option>
+                {% endif %}
+            </select>
+            <button type="submit" class="btn mt-4 w-100">Add Reference</button> 
+        </form>
         {% if collection.references.count %}
             {% for reference in collection.references.all %}
             <div class="card my-2 p-3">
                 <p class="mt-2">{{ reference.name }} ({{ reference.get_type_display }})</p>
                 <p class="mt-2">{{ reference.url }}</p>
                 <div class="d-flex justify-content-end">
-                    <a href="{% url 'references_update' collection.id reference.id %}"><i class="bi bi-pencil-square"></i></a>
+                    {% if collection.user == user %}
+                        <a href="{% url 'references_update' collection.id reference.id %}"><i class="bi bi-pencil-square"></i></a>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}
