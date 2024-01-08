@@ -37,6 +37,20 @@
     </div>
     <div class="mt-4">
         <h4 class="collection-detail-title mb-3">References</h4>
+        <form  action="{% url 'assoc_ref' collection.id %}" method="POST">
+            {% csrf_token %}
+            <select class="form-control form-control-md" name="selected_ref">
+                <option value="">-- Select</option>
+                {% if excluded_references.count %}
+                    {% for reference in excluded_references.all %}
+                        <option value="{{ reference.id }}">{{ reference.name }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option>No refererences available to add</option>
+                {% endif %}
+            </select>
+            <button type="submit" class="btn mt-4 w-100">Add Reference</button> 
+        </form>
         {% if collection.references.count %}
             {% for reference in collection.references.all %}
             <div class="card my-2 p-3">

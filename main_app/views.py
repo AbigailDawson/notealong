@@ -47,7 +47,11 @@ def collections_index(request):
 def collections_detail(request, collection_id):
   all_collections = Collection.objects.filter(user=request.user)
   collection = Collection.objects.get(id=collection_id)
+  user_references = Reference.objects.filter(user=request.user)
   user = request.user
+
+  id_list = collection.references.all().values_list('id')
+  excluded_references = user_references.exclude(id__in=id_list)
 
   sort_by = request.GET.get('sort_by', 'date_created') 
   if sort_by == 'date_created':
@@ -64,6 +68,7 @@ def collections_detail(request, collection_id):
     'user': user,
     'page_obj': page_obj,
     'sort_by': sort_by,
+    'excluded_references': excluded_references
     })
 
 def signup(request):
@@ -237,6 +242,22 @@ class ReferenceDelete(LoginRequiredMixin, DeleteView):
   
   def get_success_url(self):
     return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
+  
+class ReferencePageDelete(LoginRequiredMixin, DeleteView):
+  model = Reference
+  template_name = 'main_app/reference_page_confirm_delete.html'
+
+  def get_success_url(self):
+    return reverse('references_index')
+  
+def assoc_ref(request, collection_id):
+  selected_ref = request.POST.get('selected_ref')
+  Collection.objects.get(id=collection_id).references.add(selected_ref)
+  return redirect('detail', collection_id=collection_id)
+  
+def unassoc_ref(request, collection_id, reference_id):
+  Collection.objects.get(id=collection_id).references.remove(reference_id)
+  return redirect('detail', collection_id=collection_id)
 
 @login_required 
 def shared_collections_index(request):
