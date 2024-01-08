@@ -111,7 +111,7 @@ nav.stroke ul li a:hover:after {
 
 .btn-blu {
   font-size: 14px;
-  border: 1px solid var(--drk-blu);
+  border: 1px solid var(--blu-pop-med);
   outline: none;
   background-color: var(--blu-pop);
   color: var(--text);
@@ -119,7 +119,7 @@ nav.stroke ul li a:hover:after {
 }
 
 .btn-blu:hover {
-  border: 1px solid var(--drk-blu);
+  border: 1px solid var(--blu-pop-bright);
   background-color: var(--blu-pop-lt);
   color: var(--text);
   transform: scale(1.05);
