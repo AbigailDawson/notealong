@@ -3,6 +3,7 @@
   --body-font: "Inter", sans-serif;
   --text-lt: #474747;
   --text: #000000;
+  --sky-blu-lt: #d5edf3;
   --sky-blu: #d6e0e2;
   --blu-pop: #c1e0e6;
   --blu-pop-lt: #d6f3f9;
@@ -125,6 +126,23 @@ nav.stroke ul li a:hover:after {
   transform: scale(1.05);
 }
 
+.btn-blu-2 {
+  width: 90%;
+  font-size: 14px;
+  border: 1px solid var(--blu-pop-med);
+  outline: none;
+  background-color: var(--sky-blu-lt);
+  color: var(--text);
+  transition: 200ms ease-in-out;
+}
+
+.btn-blu-2:hover {
+  border: 1px solid var(--blu-pop-bright);
+  background-color: var(--blu-pop-lt);
+  color: var(--text);
+  transform: scale(1.05);
+}
+
 .search-btn {
   border: none;
   outline: none;
@@ -158,6 +176,12 @@ form * {
 
 .delete-link:hover {
   color: rgb(228, 0, 0);
+}
+
+.ref-form-container {
+  margin: 10px auto;
+  border-radius: 20px;
+  background-color: var(--sky-blu);
 }
 
 
@@ -217,6 +241,10 @@ form * {
 
 .container-title {
   font-size: 20px;
+}
+
+.container-desc {
+  font-size: 14px;
 }
 
 .top-row {
