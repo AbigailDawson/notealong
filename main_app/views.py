@@ -2,8 +2,8 @@ import uuid
 import boto3
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .models import Collection, Note, Reference
-from django.db.models import Q
+from .models import Collection, Note, Reference, Profile
+from django.db.models import Q, signals
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import CollectionForm, NoteForm, ReferenceForm
@@ -77,12 +77,14 @@ def signup(request):
     form = UserCreationForm(request.POST)
     if form.is_valid():
       user = form.save()
+      Profile.objects.create(user=user)
       login(request, user)
       return redirect('home')
     else:
       error_message = 'Invalid sign up - try again'
   form = UserCreationForm()
-  context = {'form': form, 'error_messaggit e': error_message}
+  
+  context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
 class CollectionCreate(LoginRequiredMixin, CreateView):
