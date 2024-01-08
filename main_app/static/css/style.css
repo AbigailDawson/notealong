@@ -271,6 +271,11 @@ form * {
   font-size: 14px;
 }
 
+.ref-container {
+  height: calc(70vh - 40px);
+  overflow-y: auto;
+}
+
 /*  ====  CARDS  ====  */
 
 .collection-card {
