@@ -237,6 +237,7 @@ form * {
   border-radius: 30px;
   height: 80vh;
   margin-bottom: 5vh;
+  padding-top: 20px;
 }
 
 .container-title {
@@ -337,35 +338,16 @@ form * {
 
 @media (max-width: 768px) {
 
-  
-  .left-col,
-  .right-col {
-    /* padding: 0px 40px 0px 40px;
-    height: 300px;
-    overflow-y: auto; */
-  }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
 
-  .left-col,
-  .right-col {
-    /* padding: 0px 40px 0px 40px; */
-    /* height: 300px;
-    overflow-y: auto; */
-  }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
 
-  .left-col,
-  .right-col {
-    /* padding: 20px 40px 20px 40px; */
-    /* height: calc(70vh - 40px);
-    overflow-y: auto; */
-  }
 }
 
 /* X-Large devices (large desktops, 1200px and up) */
