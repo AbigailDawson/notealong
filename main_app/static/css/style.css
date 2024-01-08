@@ -306,13 +306,15 @@ form * {
 
 /*  ====  CARDS  ====  */
 
-.collection-card {
+.collection-card,
+.ref-card {
   outline: 1px solid var(--grey-lt);
   border: none;
   transition: 200ms ease-in-out;
 }
 
-.collection-card:hover {
+.collection-card:hover,
+.ref-card:hover {
   border: none;
   outline: 2px solid var(--blu-pop);
   transform: scale(1.02);
