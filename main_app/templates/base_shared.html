@@ -6,14 +6,14 @@
     <div class="row">
         {% block top %}
         <div class="top-row px-5 d-flex flex-row justify-content-between align-items-end">
-            <h4>Shared Collections</h4>
+            <h4 class="container-title">Shared Collections</h4>
             <div class="right-btns d-flex flex-row">
                 <form action="{% url 'search_results' %}" method="GET" class="d-flex" role="search">
-                    <select name="type">
+                    <select name="type" class="dropdown">
                         <option value="search-user">My Collections</option>
                         <option value="search-shared">All Collections</option>
                     </select>
-                    <input name="q" class="form-control ms-2" type="text" placeholder="Search" aria-label="Search">
+                    <input name="q" class="search-bar form-control ms-2" type="text" placeholder="Search" aria-label="Search">
                     <button class="btn search-btn" type="submit"><i class="bi bi-search"></i></button>
                 </form>
             </div>
@@ -25,15 +25,17 @@
         <div class="left-col col-12 col-lg-4">
             {% block left %}
             <div class="d-flex flex-column">
-                <a href="?sort_by=date_created" {% if sort_by == 'date_created' %} class="selected" {% endif %}>Sort by Date Created (newest first)</a>
-                <a href="?sort_by=date_updated" {% if sort_by == 'date_updated' %} class="selected" {% endif %}>Sort by Date Updated (newest first)</a>
+                <p class="sort-links mt-2">Sort By: 
+                    <a class="visual-link" href="?sort_by=date_created" {% if sort_by == 'date_created' %} class="selected" {% endif %}>Date Created</a> | 
+                    <a class="visual-link"  href="?sort_by=date_updated" {% if sort_by == 'date_updated' %} class="selected" {% endif %}>Date Updated</a>
+                </p>
                 {% for collection in page_obj %}
                     <div class="collection-card card my-2 p-3" data-url="{% url 'shared_collections_detail' collection.id %}">
-                        <h4 class="card-title mb-3">{{ collection.name }}</h4>
-                        <p class="card-subtitle mb-1">Created by <b>{{ collection.user.username }}</b></p>
-                        <p class="card-subtitle mb-1">Created on {{ collection.date_created|date:"M j, Y" }}</p>
-                        <p class="card-subtitle">Updated on {{ collection.date_updated|date:"M j, Y" }}</p>
-                        <p class="card-text mt-2">{{ collection.description }}</p>
+                        <h4 class="card-title mb-2">{{ collection.name }}</h4>
+                        <p class="card-subtitle mb-1">Created by <b>{{ collection.user.username }}</b> on {{ collection.date_created|date:"M j, Y" }}</p>
+                        <p class="card-subtitle mb-2">Last updated: {{ collection.date_updated|date:"M j, Y" }}</p>
+                        <p class="card-text">{{ collection.description }}</p>
+                        
                     </div>
                 {% endfor %}
 
@@ -63,11 +65,11 @@
             {% load static %}
             <div class="welcome-right-container">
                 <div class="image-wrapper mt-5">
-                    <img src="{% static 'images/logo-wht-subtitle.png' %}" alt="" style="width: 500px">
+                    <img src="{% static 'images/logo-wht-subtitle.png' %}" alt="" style="width: 400px">
                 </div>
                 <div class="welcome-box">
                     <h2 class="text-center">You're not alone!</h2>
-                    <h4 class="text-center mt-4">Join a rich community of like-minded coding enthusiasts. Dive in by browsing all collections shared by other users, or search for a specific topic of interest!</h4>
+                    <h4 class="text-center mt-4">Join a rich community of like-minded coding enthusiasts. Dive in by browsing all collections shared by other users, or search for a specific topic of interest.</h4>
                 </div>
             </div>
             {% endblock %}

@@ -6,16 +6,16 @@
     <div class="row">
         {% block top %}
         <div class="top-row px-5 d-flex flex-row justify-content-between align-items-end">
-            <h4>My Collections</h4>
+            <h4 class="container-title">My Collections</h4>
             <div class="right-btns d-flex flex-row">
                 <a href="{% url 'collections_create' %}"><button class="btn btn-blu btn-md me-3">Add Collection</button></a>
                 <a href="{% url 'references_index' %}"><button class="btn btn-blu btn-md me-3">My References</button></a>
                 <form action="{% url 'search_results' %}" method="GET" class="d-flex" role="search">
-                    <select name="type">
+                    <select name="type" class="dropdown">
                         <option value="search-user">My Collections</option>
                         <option value="search-shared">All Collections</option>
                     </select>
-                    <input name="q" class="form-control ms-2" type="text" placeholder="Search" aria-label="Search">
+                    <input name="q" class="search-bar form-control ms-2" type="text" placeholder="Search" aria-label="Search">
                     <button class="btn search-btn" type="submit"><i class="bi bi-search"></i></button>
                 </form>
             </div>
@@ -27,8 +27,10 @@
         <div class="left-col col-12 col-lg-4">
             {% block left %}
             <div class="d-flex flex-column">
-                <a href="?sort_by=date_created" {% if sort_by == 'date_created' %} class="selected" {% endif %}>Sort by Date Created (newest first)</a>
-                <a href="?sort_by=date_updated" {% if sort_by == 'date_updated' %} class="selected" {% endif %}>Sort by Date Updated (newest first)</a>
+                <p class="sort-links mt-2">Sort By: 
+                    <a class="visual-link" href="?sort_by=date_created" {% if sort_by == 'date_created' %} class="selected" {% endif %}>Date Created</a> | 
+                    <a class="visual-link"  href="?sort_by=date_updated" {% if sort_by == 'date_updated' %} class="selected" {% endif %}>Date Updated</a>
+                </p>
 
                 {% for collection in page_obj %}
                     <div class="collection-card card my-2 p-3" data-url="{% url 'detail' collection.id %}">
@@ -70,7 +72,7 @@
             {% load static %}
             <div class="welcome-right-container">
                 <div class="image-wrapper mt-5">
-                    <img src="{% static 'images/logo-wht-subtitle.png' %}" alt="" style="width: 500px">
+                    <img src="{% static 'images/logo-wht-subtitle.png' %}" alt="" style="width: 400px">
                 </div>
                 <div class="welcome-box">
                     <h2 class="text-center">Welcome back, {{ user.username }}!</h2>

@@ -14,8 +14,8 @@
 {% endblock %}
 {% block right %}
 <div class="d-flex flex-column">
-    <h2>{{ collection.name }}</h2>
-    <p>{{ collection.description }}</p>
+    <h2 class="collection-detail-title">{{ collection.name }}</h2>
+    <p class="collection-detail-desc">{{ collection.description }}</p>
     {% if collection.user == user %}
         <div class="d-flex">
             <a role="btn" class="btn btn-outline-secondary btn-md me-3" href="{% url 'notes_create' collection.id %}">New Note</a>
@@ -23,7 +23,7 @@
         </div>
     {% endif %}
     <div class="mt-4">
-        <h4 class="mb-3">Notes</h4>
+        <h4 class="collection-detail-title mb-3">Notes</h4>
         
         {% if collection.notes.count %}
             {% for note in collection.notes.all %}
@@ -37,11 +37,11 @@
                 
             {% endfor %}
         {% else %}
-            <p class="card-text mt-2">No notes have been added to this collection.</p>
+            <p class="mt-2">No notes have been added to this collection.</p>
         {% endif %}
     </div>
     <div class="mt-4">
-        <h4 class="mb-3">References</h4>
+        <h4 class="collection-detail-title mb-3">References</h4>
         {% if collection.references.count %}
             {% for reference in collection.references.all %}
             <div class="card my-2 p-3">
@@ -50,7 +50,7 @@
             </div>
             {% endfor %}
         {% else %}
-            <p class="mt-2">No references have been added to this collection.</p>
+            <p class="collection-detail-desc mt-2">No references have been added to this collection.</p>
         {% endif %}
     </div>
 </div>
