@@ -49,42 +49,46 @@
                 <div class="col-12 col-md-4 col-lg-3">
                     <div class="ref-card card my-2 p-3">
                         <p class="mt-2">{{ reference.name }} ({{ reference.get_type_display }})</p>
-                        <!-- <button type="button" class="btn btn-blu-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-reference-url="{{ reference.url }}">
+                        {% if reference.type == 'I' %}
+                        <button type="button" class="btn btn-blu-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-reference-url="{{ reference.url }}">
                             <img src="{{ reference.url }}" width="80%">
-                        </button> -->
+                        </button>
+                        {% else %}
+                        <a href="{{ reference.url }}" target="_blank">Download PDF</a>
+                        {% endif %}
                         <div class="d-flex justify-content-end">
                             <a href="{% url 'references_page_update' reference.id %}"><i class="bi bi-pencil-square"></i></a>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
-                <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <img id="modalImage" width="300px">
+                            <img id="modalImage" width="480px">
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                       </div>
                     </div>
-                </div> -->
+                </div>
 
                 <script>
-                    // document.addEventListener('DOMContentLoaded', function () {
-                    // const modal = new bootstrap.Modal(document.getElementById('exampleModal')); // grab the modal (modal refers to an instance of the bootstrap.Modal class)
-                    //     document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function (button) { // grab all the buttons to open the modals 
-                    //         button.addEventListener('click', function () { // add evt listeners to the buttons
-                    //             const referenceUrl = this.getAttribute('data-reference-url'); // create variable to store the data-reference-url
-                    //             document.getElementById('modalImage').src = referenceUrl; // grab the modalImage element and update its src attribute to equal the referenceUrl stored above
-                    //             modal.show(); // part of built-in Bootstrap functionality for modals
-                    //         });
-                    //     });
-                    // });
+                    document.addEventListener('DOMContentLoaded', function () {
+                    const modal = new bootstrap.Modal(document.getElementById('exampleModal')); // grab the modal (modal refers to an instance of the bootstrap.Modal class)
+                        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function (button) { // grab all the buttons to open the modals 
+                            button.addEventListener('click', function () { // add evt listeners to the buttons
+                                const referenceUrl = this.getAttribute('data-reference-url'); // create variable to store the data-reference-url
+                                document.getElementById('modalImage').src = referenceUrl; // grab the modalImage element and update its src attribute to equal the referenceUrl stored above
+                                modal.show(); // part of built-in Bootstrap functionality for modals
+                            });
+                        });
+                    });
                 </script>
 
             {% else %}
