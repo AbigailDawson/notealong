@@ -2,15 +2,48 @@
 
 {% block content %}
 
-<div class="content-container container mt-4 py-4">
-    <h4 class="mb-3">References</h4>
-
-    <form action="" enctype="multipart/form-data" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="file" name="url">
-        <button class="btn btn-outline-secondary btn-md" type="submit">Submit!</button>
-    </form>
+<div class="content-container container mt-4">
+    <div class="row">
+        <div class="top-row px-5 d-flex flex-row justify-content-between align-items-end">
+            <h4 class="container-title">My References</h4>
+            <div class="right-btns d-flex flex-row">
+                <form action="{% url 'search_results' %}" method="GET" class="d-flex" role="search">
+                    <select name="type" class="dropdown">
+                        <option value="search-user">My Collections</option>
+                        <option value="search-shared">All Collections</option>
+                    </select>
+                    <input name="q" class="search-bar form-control ms-2" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn search-btn" type="submit"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="border-line"></div>
+    </div>
+    <div class="col-content-container ref-container row px-4">
+        
+        <div class="ref-form-container row flex-column p-4">
+            <h4 class="container-title">Update Reference</h4>
+            <h2 class="container-desc"></h2>
+            <form class="d-flex flex-column" action="" enctype="multipart/form-data" method="POST">
+                {% csrf_token %}
+                <div class="form-group d-flex mt-1 mb-3">
+                    <label class="me-3" for="{{ form.name.id_for_label }}">Name</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group d-flex mt-1 mb-3">
+                    <label class="me-3" for="{{ form.name.id_for_label }}">Type</label>
+                    {{ form.type }}
+                </div>
+                <input type="file" name="url">
+                <button class="btn btn-blu-2 mt-3" type="submit" style="width: 50%">Submit!</button>
+            </form>
+        
+            <a class="delete-link mt-4" href="">Delete Reference</a>
+            <p class="small-text mt-2"><b>Warning: </b>This action cannot be undone.</p>
+        </div>
+       
+    </div>
 </div>
+
 
 {% endblock %}

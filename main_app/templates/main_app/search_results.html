@@ -2,18 +2,18 @@
 
 {% block content %}
 
-<div class="content-container container mt-4 py-4">
+<div class="content-container container mt-4">
     <div class="row">
         {% block top %}
         <div class="top-row px-5 d-flex flex-row justify-content-between align-items-end">
-            <h4>Search Results</h4>
+            <h4 class="container-title">Search Results</h4>
             <div class="right-btns d-flex flex-row">
                 <form action="{% url 'search_results' %}" method="GET" class="d-flex" role="search">
-                    <input name="q" class="form-control me-2" type="text" placeholder="Search my collections" aria-label="Search">
-                    <select name="type">
-                        <option value="search-user">Search My Collections</option>
-                        <option value="search-shared">Search All Collections</option>
+                    <select name="type" class="dropdown">
+                        <option value="search-user">My Collections</option>
+                        <option value="search-shared">All Collections</option>
                     </select>
+                    <input name="q" class="search-bar form-control ms-2" type="text" placeholder="Search" aria-label="Search">
                     <button class="btn search-btn" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                       </svg></button>
@@ -24,19 +24,19 @@
         {% endblock %}
     </div>
     <div class="col-content-container row">
-        <div class="left-col col-12 col-lg-4">
+        <div class="left-col col-12 col-md-4">
             {% block left %}
             <div class="d-flex flex-column">
-                <a href="?q={{ request.GET.q }}&type={{ request.GET.type }}&sort_by=date_created" {% if sort_by == 'date_created' %} class="selected" {% endif %}>Sort by Date Created (newest first)</a>
-                <a href="?q={{ request.GET.q }}&type={{ request.GET.type }}&sort_by=date_updated" {% if sort_by == 'date_updated' %} class="selected" {% endif %}>Sort by Date Updated (newest first)</a>
-
+                <p class="sort-links mt-2">Sort By: 
+                    <a class="visual-link" href="?q={{ request.GET.q }}&type={{ request.GET.type }}&sort_by=date_created" {% if sort_by == 'date_created' %} class="selected" {% endif %}>Date Created</a> | 
+                    <a class="visual-link"  href="?q={{ request.GET.q }}&type={{ request.GET.type }}&sort_by=date_updated" {% if sort_by == 'date_updated' %} class="selected" {% endif %}>Date Updated</a>
+                </p>
                 {% for collection in object_list %}
                     <div class="collection-card card my-2 p-3" data-url="{% url 'search_results_detail' collection.id %}">
-                        <h4 class="card-title mb-3">{{ collection.name }}</h4>
-                        <p class="card-subtitle mb-1">Created by <b>{{ collection.user.username }}</b></p>
-                        <p class="card-subtitle mb-1">Created on {{ collection.date_created }}</p>
-                        <p class="card-subtitle">Updated on {{ collection.date_updated }}</p>
-                        <p class="card-text mt-2">{{ collection.description }}</p>
+                        <h4 class="card-title mb-2">{{ collection.name }}</h4>
+                        <p class="card-subtitle mb-1">Created by <b>{{ collection.user.username }}</b> on {{ collection.date_created|date:"M j, Y" }}</p>
+                        <p class="card-subtitle mb-2">Last updated: {{ collection.date_updated|date:"M j, Y" }}</p>
+                        <p class="card-text">{{ collection.description }}</p>
                     </div>
                 {% endfor %}
 
@@ -61,7 +61,7 @@
             </div>     
             {% endblock %}
         </div>
-        <div class="right-col col-12 col-lg-8">
+        <div class="right-col col-12 col-md-8">
             {% block right %}
             {% endblock %}
         </div>

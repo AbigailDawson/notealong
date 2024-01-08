@@ -3,9 +3,9 @@
 {% block right %}
   <div class="d-flex flex-column">
     {% if object %}
-      <h4>Edit <span>{{ object.name }}</span></h4>
+      <h4 class="collection-detail-title">Edit <span style="color: var(--blu-pop-med)">{{ object.name }}</span></h4>
       {% else %}
-        <h4 class="mb-3">Create Reference</h4>
+        <h4 class="collection-detail-title mb-3">Create Reference</h4>
     {% endif %}
     <form action="" enctype="multipart/form-data" method="POST">
       {% csrf_token %}

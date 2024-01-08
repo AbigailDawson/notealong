@@ -29,8 +29,6 @@ class Reference(models.Model):
   def __str__(self):
     return f'{self.name} is a {self.type} file'
 
-
-
 class Collection(models.Model):
   name = models.CharField(max_length=100)
   description = models.TextField(max_length=300)
@@ -40,7 +38,7 @@ class Collection(models.Model):
   notes = models.ManyToManyField(Note, default='')
   references = models.ManyToManyField(Reference, default='')
   user = models.ForeignKey(User, on_delete=models.CASCADE)
-  
+
   def __str__(self):
     return f'{self.name} created on {self.date_created}'
 
@@ -51,3 +49,10 @@ class Collection(models.Model):
     self.date_updated = timezone.now()
     super().save(*args, **kwargs)
   
+# class UserSavedCollections(models.Model):
+#   user = models.ForeignKey(User, on_delete=models.CASCADE)
+#   collections_saved = models.ForeignKey(Collection, on_delete=models.CASCADE)
+
+# class Profile(models.Model):
+#   user = models.OneToOneField(User)
+#   collections_saved = models.ManyToOneField(Collection)
