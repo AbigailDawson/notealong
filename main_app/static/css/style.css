@@ -77,6 +77,8 @@ h1, h2, h3, h4, h5 {
 }
 
 .nav-btn {
+  border: none;
+  outline: none;
   font-size: 16px;
 }
 
@@ -98,7 +100,7 @@ nav.stroke ul li a:after {
   width: 0%;
   content: '.';
   color: transparent;
-  background: var(--green);
+  background: var(--blu-pop-med);
   height: 2px;
   transition: width 200ms ease-in-out;
 }
@@ -207,6 +209,15 @@ form * {
 
 /*  ====  LOGIN  ====  */
 
+.login-content-container {
+  background-color: white;
+  border-radius: 30px;
+  height: 80vh;
+  margin-bottom: 5vh;
+  padding-top: 20px;
+  box-shadow: none;
+}
+
 .login-left-container,
 .login-right-container {
   display: flex;
@@ -264,6 +275,8 @@ form * {
   height: 80vh;
   margin-bottom: 5vh;
   padding-top: 20px;
+  box-shadow: 2px 6px 12px -1px rgba(0,0,0,0.2);
+
 }
 
 .container-title {
@@ -282,7 +295,7 @@ form * {
   margin: 8px auto;
   height: 1px;
   width: 95%;
-  background-color: var(--grey);
+  background-color: var(--grey-lt);
 }
 
 .left-col,
@@ -293,7 +306,7 @@ form * {
 }
 
 .left-col {
-  border-right: 1px solid var(--grey);
+  border-right: 1px solid var(--grey-lt);
 }
 
 .dropdown {
@@ -375,9 +388,15 @@ form * {
 
 /*  ====  CARDS  ====  */
 
+.card {
+  outline: 1px solid var(--sky-blu);
+  border: none;
+
+}
+
 .collection-card,
 .ref-card {
-  outline: 1px solid var(--grey-lt);
+  outline: 1px solid var(--sky-blu);
   border: none;
   transition: 200ms ease-in-out;
 }
