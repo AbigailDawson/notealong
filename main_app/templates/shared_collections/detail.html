@@ -10,20 +10,19 @@
         {% else %}
         <p class="small-text mt-0" style="color: var(--green)">Private</p>
     {% endif %}
-    <!-- add conditonal to only show this if the user hasn't already saved the collection -->
-    <!-- {% if collection.user != user %}  -->
+
     {% if collection in user.profile.collections_saved.all %}
         <div class="d-flex align-items-center mb-4">
             <a role="btn" class="btn btn-outline-secondary" style="width: 20%" href="{% url 'saved_collections_remove' collection.id %}">Remove</a>
             <p class="small mb-0 ms-2"><i>Remove this collection from your saved collections.</i></p>
         </div>
-    {% else %}
+    {% elif collection.user != user %}
+        <!-- else if the user who created this collection is NOT EQUAL TO the logged in user, then .... -->
         <div class="d-flex align-items-center mb-4">
             <a role="btn" class="btn btn-blu" style="width: 20%" href="{% url 'saved_collections_add' collection.id %}">Save</a>
             <p class="small mb-0 ms-2"><i>Save this collection to easily access it later.</i></p>
         </div>
     {% endif %}
-    <!-- {% endif %} -->
 
     <a class="visual-link" href="#references">Jump to References</a>
 
