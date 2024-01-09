@@ -4,7 +4,7 @@
     <h4 class="mb-3">Are you sure you want to delete <b>{{ collection.name }}</b>?</h4>
     <form action="" method="POST">
         {% csrf_token %}
-        <input type="submit" value="Yes - Delete!" class="btn">
-        <a href="{% url 'detail' collection.id %}">Cancel</a>
+        <button type="submit" class="btn btn-red mb-2">Yes - Delete!</button><br>
+        <a class="visual-link" href="{% url 'detail' collection.id %}">Cancel</a>
       </form>
 {% endblock %}

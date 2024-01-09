@@ -1,5 +1,13 @@
 {% extends 'base_saved.html' %}
 
-
-
-
+{% block right %}
+{% load static %}
+<div class="welcome-right-container">
+    <div class="welcome-box">
+      <h2 class="text-center mt-4">Saving a Collection</h2>
+      <p class="collection-desc text-center mt-4">Saving collections makes it easy to refer back to your favorite notes shared by other users.</p>
+      <p class="collection-desc text-center"><a class="visual-link" href="{% url 'shared_collections' %}">Browse collections</a> to find more collections to save!</p>
+      <p class="collection-desc text-center">You can remove a collection from your list any time by clicking the Remove button on that collection's page.</p>
+    </div>
+</div>
+{% endblock %}
