@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h4 class="mb-3">Are you sure you want to delete?</h4>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="submit" value="Yes - Delete!" class="btn">
-        <a href="{% url 'references_index' %}">Cancel</a>
-      </form>
+  <h4 class="mb-3">Are you sure you want to delete?</h4>
+  <form action="" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="Yes - Delete!" class="btn">
+      <a href="{% url 'references_index' %}">Cancel</a>
+  </form>
 {% endblock %}

@@ -167,6 +167,7 @@ nav.stroke ul li a:hover:after {
 }
 
 .btn-red:hover {
+  background-color: white;
   border: 1px solid var(--btn-red);
   color: var(--text);
   transform: scale(1.05);

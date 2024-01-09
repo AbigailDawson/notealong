@@ -22,9 +22,6 @@ def home(request):
     else:
         return render(request, 'home.html')
 
-def about(request):
-    return render(request, 'about.html')
-
 @login_required
 def collections_index(request):
   all_collections = Collection.objects.filter(user=request.user)
@@ -281,11 +278,13 @@ class ReferencePageDelete(LoginRequiredMixin, DeleteView):
   def get_success_url(self):
     return reverse('references_index')
   
+@login_required
 def assoc_ref(request, collection_id):
   selected_ref = request.POST.get('selected_ref')
   Collection.objects.get(id=collection_id).references.add(selected_ref)
   return redirect('detail', collection_id=collection_id)
   
+@login_required
 def unassoc_ref(request, collection_id, reference_id):
   Collection.objects.get(id=collection_id).references.remove(reference_id)
   return redirect('detail', collection_id=collection_id)
@@ -343,7 +342,7 @@ class SearchResults(LoginRequiredMixin, ListView):
   def get_queryset(self):
     query = self.request.GET.get('q')
     type = self.request.GET.get('type')
-    sort_by = self.request.GET.get('sort_by', 'date_created')  # default to date_created
+    sort_by = self.request.GET.get('sort_by', 'date_created')
     
     if type == 'search-user':
       print(self.request.user)
@@ -381,18 +380,18 @@ def saved_collections_index(request):
   
   user = request.user
 
-  sort_by = request.GET.get('sort_by', 'date_created')  # default to date_created
+  sort_by = request.GET.get('sort_by', 'date_created')
   if sort_by == 'date_created':
     collections_saved = collections_saved.order_by('-date_created')
   elif sort_by == 'date_updated':
     collections_saved = collections_saved.order_by('-date_updated')
 
-  paginator = Paginator(collections_saved, 5)  # 5 collections per page
+  paginator = Paginator(collections_saved, 5)
   page_number = request.GET.get('page')
   page_obj = paginator.get_page(page_number)
 
   return render(request, 'saved_collections/index.html', {
-    'collections_saved': page_obj, # pass in the paginated list
+    'collections_saved': page_obj,
     'user': user,
     'page_obj': page_obj,
     'sort_by': sort_by,
@@ -422,6 +421,7 @@ def saved_collections_detail(request, collection_id):
     'sort_by': sort_by,
     })
 
+@login_required
 def saved_collections_add(request, collection_id):
   user_profile = Profile.objects.get(user=request.user)
   collection = Collection.objects.get(id=collection_id)
@@ -430,6 +430,7 @@ def saved_collections_add(request, collection_id):
   
   return redirect('shared_collections_detail',collection_id=collection_id)
 
+@login_required
 def saved_collections_remove(request, collection_id):
   user_profile = Profile.objects.get(user=request.user)
   collection = Collection.objects.get(id=collection_id)

@@ -6,8 +6,8 @@
 {% block right %}
 <h4 class="my-3">Are you sure you want to delete this reference?</h4>
 <form action="" method="POST">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-red mb-2">Yes - Delete!</button><br>
-        <a class="visual-link" href="{% url 'detail' collection.id %}">Cancel</a>
-      </form>
+  {% csrf_token %}
+  <button type="submit" class="btn btn-red mb-2">Yes - Delete!</button><br>
+  <a class="visual-link" href="{% url 'detail' collection.id %}">Cancel</a>
+</form>
 {% endblock %}
