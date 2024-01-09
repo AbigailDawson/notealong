@@ -15,6 +15,8 @@
   --grey-lt: #b2b2b2;
   --grey: #686867;
   --drk-blu: #162a2c;
+  --btn-red-drk: #a80404;
+  --btn-red: #e40000;
 }
 
 #editor {
@@ -75,6 +77,8 @@ h1, h2, h3, h4, h5 {
 }
 
 .nav-btn {
+  border: none;
+  outline: none;
   font-size: 16px;
 }
 
@@ -96,7 +100,7 @@ nav.stroke ul li a:after {
   width: 0%;
   content: '.';
   color: transparent;
-  background: var(--green);
+  background: var(--blu-pop-med);
   height: 2px;
   transition: width 200ms ease-in-out;
 }
@@ -143,20 +147,38 @@ nav.stroke ul li a:hover:after {
   transform: scale(1.05);
 }
 
-.search-btn {
-  border: none;
+.btn-red {
+  font-size: 14px;
+  border: 1px solid var(--btn-red-drk);
   outline: none;
+  background-color: white;
+  color: var(--text);
+  transition: 200ms ease-in-out;
+}
+
+.btn-red:hover {
+  border: 1px solid var(--btn-red);
+  color: var(--text);
+  transform: scale(1.05);
+}
+
+.btn-link {
+  border: none;
+  text-decoration: none;
+  color: var(--blu-pop-med)
+}
+
+.btn-link:hover {
+  color: var(--blu-pop-bright)
 }
 
 /*  ====  ICONS  ====  */
 
-.edit-icon-btn,
-.search-btn {
+.edit-icon-btn {
   font-size: 20px;
 }
 
-.edit-icon-btn:hover,
-.search-btn:hover {
+.edit-icon-btn:hover {
   color: var(--blu-pop-bright);
 }
 
@@ -171,11 +193,11 @@ form * {
 }
 
 .delete-link {
-  color: rgb(168, 4, 4);
+  color: var(--btn-red-drk);
 }
 
 .delete-link:hover {
-  color: rgb(228, 0, 0);
+  color: var(--btn-red);
 }
 
 .ref-form-container {
@@ -187,6 +209,15 @@ form * {
 
 /*  ====  LOGIN  ====  */
 
+.login-content-container {
+  background-color: white;
+  border-radius: 30px;
+  height: 80vh;
+  margin-bottom: 5vh;
+  padding-top: 20px;
+  box-shadow: none;
+}
+
 .login-left-container,
 .login-right-container {
   display: flex;
@@ -196,9 +227,15 @@ form * {
   height: 100%;
 }
 
-.login-left-container {
-  background-color: var(--sky-blu);
-  border-radius: 50px;
+.login-right-container {
+  margin-left: 40px;
+  padding-left: 40px;
+  border-radius: 30px;
+  background-color: white;
+  /* border: 2px solid var(--blu-pop); */
+  outline: 3px solid var(--blu-pop-lt);
+  outline-offset: -20px;
+  box-shadow: 2px 6px 12px -1px rgba(0,0,0,0.4);
 }
 
 .login-box {
@@ -238,6 +275,8 @@ form * {
   height: 80vh;
   margin-bottom: 5vh;
   padding-top: 20px;
+  box-shadow: 2px 6px 12px -1px rgba(0,0,0,0.2);
+
 }
 
 .container-title {
@@ -256,7 +295,7 @@ form * {
   margin: 8px auto;
   height: 1px;
   width: 95%;
-  background-color: var(--grey);
+  background-color: var(--grey-lt);
 }
 
 .left-col,
@@ -267,18 +306,13 @@ form * {
 }
 
 .left-col {
-  border-right: 1px solid var(--grey);
+  border-right: 1px solid var(--grey-lt);
 }
 
 .dropdown {
   border-radius: 5px;
   padding: 0 7px;
   margin-left: 20px;
-  font-size: 14px;
-  height: 34px;
-}
-
-.search-bar {
   font-size: 14px;
   height: 34px;
 }
@@ -305,11 +339,65 @@ form * {
   overflow-y: auto;
 }
 
+/*  ====  SEARCH  ====  */
+
+.search-bar {
+  border: 1px solid var(--blu-pop);
+  color: var(--blu-pop-med);
+  font-size: 14px;
+  height: 36px;
+  margin-bottom: 5px;
+}
+
+.search-bar:focus {
+  outline: 1px solid var(--blu-pop-bright);
+  border: 1px solid var(--blu-pop);
+}
+
+.search-dropdown {
+  border: 1px solid var(--blu-pop);
+  color: var(--blu-pop-med);
+  border-radius: 5px;
+  padding: 0 10px;
+  margin-left: 20px;
+  font-size: 14px;
+  height: 36px;
+  min-width: 140px;
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.search-dropdown:focus {
+  outline: 1px solid var(--blu-pop-lt);
+}
+
+.search-icon {
+  color: var(--blu-pop-med);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.search-icon:hover {
+  color: var(--blu-pop-bright);
+}
+
+.search-btn {
+  outline: none;
+  border: none;
+}
+
+
 /*  ====  CARDS  ====  */
+
+.card {
+  outline: 1px solid var(--sky-blu);
+  border: none;
+
+}
 
 .collection-card,
 .ref-card {
-  outline: 1px solid var(--grey-lt);
+  outline: 1px solid var(--sky-blu);
   border: none;
   transition: 200ms ease-in-out;
 }

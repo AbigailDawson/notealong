@@ -2,17 +2,18 @@
 {% block content %}
 {% load static %}
 
-<div class="content-container container mt-2 py-4">
+<div class="login-content-container container mt-2 py-4" style="background-color: var(--sky-blyu)">
     <div class="row" style="height: 100%">
-        <div class="col-12 col-lg-6">
-            <div class="login-left-container ms-2 p-3">
+        <div class="col-12 col-lg-5">
+            <div class="login-left-container mx-2 p-1">
                 <div class="image-wrapper">
-                    <img src="{% static 'images/logo-blu-title.png' %}" alt="" style="width: 400px">
+                    <img src="{% static 'images/logo-blu-subtitle.png' %}" alt="" style="width: 400px">
                 </div>
-                <h3 class="text-center mt-5">Your notetaking companion for coding mastery.</h3>
+                <h2 class="container-title text-center mt-3" style="font-size: 20px">Welcome to Notealong, a notetaking platform to help you stay organized on your coding journey.</h2>
+                <h4 class="container-desc text-center mt-5" style="font-size: 18px">Learn about the Notealong team on <a class="visual-link" href="https://github.com/Larzinew/notealong" style="font-weight: 800;" target="_blank">GitHub</a>.</h4>
             </div>
         </div>
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-7">
             <div class="login-right-container">
                 <div class="login-box">
                     <h1>Sign Up</h1>
@@ -20,8 +21,9 @@
                     <form method="POST" action="{% url 'signup' %}">
                       {% csrf_token %}
                       {{ form.as_p }}
-                      <input type="submit" class="btn btn-blu" value="Sign Up">
+                      <input type="submit" class="btn btn-blu mb-3" value="Sign Up">
                     </form>
+                    <a class="visual-link" href="{% url 'login' %}">Log In</a>
                 </div>
             </div>
         </div>

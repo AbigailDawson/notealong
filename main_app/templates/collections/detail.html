@@ -3,17 +3,21 @@
 
 {% block right %}
 <div class="d-flex flex-column">
-    <h2 class="collection-detail-title">{{ collection.name }}</h2>
-    <p class="collection-detail-desc">{{ collection.description }}</p>
-    <div class="d-flex">
-        {% if collection.user == user %}
-            <a role="btn" class="btn btn-blu me-3" href="{% url 'notes_create' collection.id %}">New Note</a>
-            <a role="btn" class="btn btn-blu" href="{% url 'references_create' collection.id %}">New Reference</a>
-        {% endif %}
-    </div>
+    <h2 class="collection-detail-title me-4" id="top">{{ collection.name }}</h2>
+    <p class="collection-detail-desc mb-2">{{ collection.description }}</p>
+    {% if collection.shared == True %}
+        <p class="small-text mt-0" style="color: var(--blu-pop-med)">Shared</p>
+        {% else %}
+        <p class="small-text mt-0" style="color: var(--green)">Private</p>
+    {% endif %}
+
+    <a class="visual-link" href="#references">Jump to References</a>
     
     <div class="mt-4">
-        <h4 class="collection-detail-title mb-3">Notes</h4>
+        <h4 class="collection-detail-title mb-3" id="notes">Notes</h4>
+        {% if collection.user == user %}
+            <a role="btn" class="btn btn-blu me-3 mb-3" href="{% url 'notes_create' collection.id %}">New Note</a>
+        {% endif %}
         
         {% if collection.notes.count %}
             {% for note in collection.notes.all %}
@@ -36,33 +40,42 @@
         {% endif %}
     </div>
     <div class="mt-4">
-        <h4 class="collection-detail-title mb-3">References</h4>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h4 class="collection-detail-title" id="references">References</h4>
+            <a class="visual-link me-3" href="#top">Back to Top</a>
+        </div>
+        {% if collection.user == user %}
+        <a role="btn" class="btn btn-blu" href="{% url 'references_create' collection.id %}">New Reference</a>
+    {% endif %}
+        <h2 class="collection-detail-desc mt-4">Add an existing reference to this collection using the dropdown below.</h2>
         <form  action="{% url 'assoc_ref' collection.id %}" method="POST">
             {% csrf_token %}
-            <select class="form-control form-control-md" name="selected_ref">
-                <option value="">-- Select</option>
-                {% if excluded_references.count %}
-                    {% for reference in excluded_references.all %}
-                        <option value="{{ reference.id }}">{{ reference.name }}</option>
-                    {% endfor %}
-                {% else %}
-                    <option>No refererences available to add</option>
-                {% endif %}
-            </select>
-            <button type="submit" class="btn mt-4 w-100">Add Reference</button> 
+            <div class="d-flex mb-3">
+                <select class="dropdown me-2 ms-0" name="selected_ref">
+                    <option value="">-- Select</option>
+                    {% if excluded_references.count %}
+                        {% for reference in excluded_references.all %}
+                            <option value="{{ reference.id }}">{{ reference.name }}</option>
+                        {% endfor %}
+                    {% else %}
+                        <option>No refererences available to add</option>
+                    {% endif %}
+                </select>
+                <button type="submit" class="btn btn-blu">Add</button> 
+            </div>
         </form>
         <div class="col-content-container ref-container row px-4">
         {% if collection.references.count %}
             {% for reference in collection.references.all %}
-            <div class="col-12 col-md-4 col-lg-3">
+            <div class="col-12 col-md-4">
                 <div class="ref-card card my-2 p-3">
-                    <p class="mt-2">{{ reference.name }} ({{ reference.get_type_display }})</p>
+                    <p class="mt-2" style="font-size: 14px;">{{ reference.name }} ({{ reference.get_type_display }})</p>
                     {% if reference.type == 'I' %}
                     <button type="button" class="btn btn-blu-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-reference-url="{{ reference.url }}">
-                        <img src="{{ reference.url }}" width="80%">
+                        <img src="{{ reference.url }}" width="100%">
                     </button>
                     {% else %}
-                    <a href="{{ reference.url }}" target="_blank">Download PDF</a>
+                    <a role="btn" class="btn btn-blu" href="{{ reference.url }}">Open</a>
                     {% endif %}
                     <div class="d-flex justify-content-end">
                         {% if collection.user == user %}

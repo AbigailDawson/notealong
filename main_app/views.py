@@ -17,7 +17,7 @@ import os
 # Create your views here.
 
 def home(request):
-    return render(request, 'home.html')
+    return redirect('index')
 
 def about(request):
     return render(request, 'about.html')
@@ -121,6 +121,7 @@ class NoteCreate(LoginRequiredMixin, CreateView):
     new_note = form.save(commit=False)
     new_note.save()
     collection.notes.add(new_note)
+    collection.save()
     return super().form_valid(form)
 
 class NoteUpdate(LoginRequiredMixin, UpdateView):
@@ -133,6 +134,11 @@ class NoteUpdate(LoginRequiredMixin, UpdateView):
     context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
     return context
   
+  def form_valid(self, form):
+    collection = Collection.objects.get(id=self.kwargs['collection_id'])
+    collection.save()
+    return super().form_valid(form)
+  
   def get_success_url(self):
     return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
 
@@ -144,6 +150,11 @@ class NoteDelete(LoginRequiredMixin, DeleteView):
     context['all_collections'] = Collection.objects.filter(user=self.request.user)
     context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
     return context
+  
+  def form_valid(self, form):
+    collection = Collection.objects.get(id=self.kwargs['collection_id'])
+    collection.save()
+    return super().form_valid(form)
   
   def get_success_url(self):
     return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
@@ -199,6 +210,7 @@ class ReferenceCreate(LoginRequiredMixin, CreateView):
     if self.kwargs.get('collection_id'):
       collection = Collection.objects.get(id=self.kwargs['collection_id']) 
       collection.references.add(self.object)
+      collection.save()
     else:
       return response
 
@@ -212,9 +224,13 @@ class ReferenceUpdate(LoginRequiredMixin, UpdateView):
     context = super().get_context_data(**kwargs)
     context['page_obj'] = Collection.objects.filter(user=self.request.user)
     context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
-    
     return context
   
+  def form_valid(self, form):
+    collection = Collection.objects.get(id=self.kwargs['collection_id'])
+    collection.save()
+    return super().form_valid(form)
+
   def get_success_url(self):
     return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
 
@@ -228,6 +244,11 @@ class ReferencePageUpdate(LoginRequiredMixin,UpdateView):
     context = super().get_context_data(**kwargs)
     context['references'] = Reference.objects.filter(user=self.request.user)
     return context
+  
+  def form_valid(self, form):
+    collection = Collection.objects.get(id=self.kwargs['collection_id'])
+    collection.save()
+    return super().form_valid(form)
  
   def get_success_url(self):
     return reverse('references_index')
@@ -241,6 +262,11 @@ class ReferenceDelete(LoginRequiredMixin, DeleteView):
     context['all_collections'] = Collection.objects.filter(user=self.request.user)
     context['collection'] = Collection.objects.get(id=self.kwargs['collection_id'])
     return context
+  
+  def form_valid(self, form):
+    collection = Collection.objects.get(id=self.kwargs['collection_id'])
+    collection.save()
+    return super().form_valid(form)
   
   def get_success_url(self):
     return reverse('detail', kwargs={'collection_id':self.kwargs.get('collection_id')})
@@ -344,6 +370,7 @@ def saved_collections_index(request):
 
   user_profile = Profile.objects.get(user=request.user)
   collections_saved = user_profile.collections_saved.all().order_by('-date_created')[:5]
+  
   user = request.user
 
   # sort_by = request.GET.get('sort_by', 'date_created')  # default to date_created
