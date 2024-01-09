@@ -42,7 +42,12 @@
                         </div>
                         <p class="card-subtitle mb-1">Created on {{ collection.date_created|date:"M j, Y" }}</p>
                         <p class="card-subtitle">Updated on {{ collection.date_updated|date:"M j, Y" }}</p>
-                        <p class="card-text mt-2">{{ collection.description }}</p>
+                        <p class="card-text mt-2 mb-2">{{ collection.description }}</p>
+                        {% if collection.shared == True %}
+                            <p class="card-text" style="color: var(--blu-pop-med)">Shared</p>
+                            {% else %}
+                            <p class="card-text" style="color: var(--green)">Private</p>
+                        {% endif %}
                     </div>
                 {% endfor %}
 
