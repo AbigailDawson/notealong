@@ -33,3 +33,25 @@
 
   </div>
 {% endblock %}
+
+{% block right %}
+{% load static %}
+<div class="welcome-right-container">
+  {% if object %}
+    <div class="welcome-box">
+      <h2 class="text-center mt-4">Editing a Collection</h2>
+      <p class="collection-desc text-center mt-4">Update your collection's name, description or shared status.</p>
+      <p class="collection-desc text-center"> To edit the notes or references belonging to this collection, navigate to your collection's <a class="visual-link" href="{% url 'detail' collection.id %}">detail page</a> instead.</p>
+      <p class="collection-desc text-center">Deleting a collection is permanent, but will not delete this collection's references. The references will still be available to add to other collections, and can be accessed from the <a class="visual-link" href="{% url 'references_index' %}">My References</a> page.</p>
+    </div>
+  {% else %}
+    <div class="welcome-box">
+      <h2 class="text-center mt-4">Creating a New Collection</h2>
+      <p class="collection-desc text-center mt-4">Collections are groupings of related notes and references.</p>
+      <p class="collection-desc text-center">Use the form to create a collection by providing a name and description. Checking off <span style="color: var(--blu-pop-med); font-weight: 800;">Shared</span> will make your collection visibile to other users. This setting can be changed at any time!</p>
+      <p class="collection-desc text-center">Once you've created your new collection, you will be able to add new <span style="color: var(--blu-pop-med); font-weight: 800;">notes</span> and <span style="color: var(--blu-pop-med); font-weight: 800;">references</span>.</p>
+    </div>
+  {% endif %}
+  
+</div>
+{% endblock %}
