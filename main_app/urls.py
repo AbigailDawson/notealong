@@ -28,5 +28,6 @@ urlpatterns = [
     path('search/<int:collection_id>/', views.search_results_detail, name="search_results_detail"),
     path('saved-collections/', views.saved_collections_index, name='saved_collections_index'),
     path('saved-collections/<int:collection_id>/', views.saved_collections_detail, name='saved_collections_detail'),
-    path('saved-collections/<int:collection_id>/add', views.saved_collections_add, name='saved_collections_add')
+    path('saved-collections/<int:collection_id>/add', views.saved_collections_add, name='saved_collections_add'),
+    path('saved-collections/<int:collection_id>/remove', views.saved_collections_remove, name='saved_collections_remove')
 ]
