@@ -38,7 +38,7 @@
                         {{ ref_form.type }}
                     </div>
                     <input type="file" name="url">
-                    <button class="btn btn-blu-2 mt-3" type="submit">Submit!</button>
+                    <button class="btn btn-blu-2 mt-3" type="submit" style="width: 60%">Submit!</button>
                 </form>
             </div>
             
@@ -51,10 +51,10 @@
                         <p class="mt-2">{{ reference.name }} ({{ reference.get_type_display }})</p>
                         {% if reference.type == 'I' %}
                         <button type="button" class="btn btn-blu-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-reference-url="{{ reference.url }}">
-                            <img src="{{ reference.url }}" width="80%">
+                            <img src="{{ reference.url }}" width="100%">
                         </button>
                         {% else %}
-                        <a href="{{ reference.url }}" target="_blank">Download PDF</a>
+                        <a role="btn" class="btn btn-blu" href="{{ reference.url }}" target="_blank">Open</a>
                         {% endif %}
                         <div class="d-flex justify-content-end">
                             <a href="{% url 'references_page_update' reference.id %}"><i class="bi bi-pencil-square"></i></a>

@@ -344,6 +344,7 @@ def saved_collections_index(request):
 
   user_profile = Profile.objects.get(user=request.user)
   collections_saved = user_profile.collections_saved.all().order_by('-date_created')[:5]
+  
   user = request.user
 
   # sort_by = request.GET.get('sort_by', 'date_created')  # default to date_created
