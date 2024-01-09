@@ -38,8 +38,8 @@
                 <button class="btn btn-blu-2 mt-3" type="submit" style="width: 50%">Submit!</button>
             </form>
         
-            <a class="delete-link mt-4" href="{% url 'references_page_delete' reference.id %}">Delete Reference</a>
-            <p class="small-text mt-2"><b>Warning: </b>This action cannot be undone.</p>
+            <a class="btn btn-red mt-4" href="{% url 'references_page_delete' reference.id %}">Delete Reference</a>
+            <p class="small-text delete-link mt-2"><b>Warning: </b>This action cannot be undone.</p>
         </div>
        
     </div>

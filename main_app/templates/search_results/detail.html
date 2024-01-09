@@ -38,7 +38,6 @@
         {% else %}
         <p class="small-text mt-0" style="color: var(--green)">Private</p>
     {% endif %}
-    <!-- add conditonal to only show this if the user hasn't already saved the collection, consider changing to 'remove from saved' if it is -->
     {% if collection.user != user %}
     <div class="d-flex align-items-center mb-4">
         <a role="btn" class="btn btn-blu" style="width: 20%" href="">Save</a>
@@ -121,12 +120,11 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-        const modal = new bootstrap.Modal(document.getElementById('exampleModal')); // grab the modal (modal refers to an instance of the bootstrap.Modal class)
-            document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function (button) { // grab all the buttons to open the modals 
-                button.addEventListener('click', function () { // add evt listeners to the buttons
-                    const referenceUrl = this.getAttribute('data-reference-url'); // create variable to store the data-reference-url
-                    document.getElementById('modalImage').src = referenceUrl; // grab the modalImage element and update its src attribute to equal the referenceUrl stored above
-                    modal.show(); // part of built-in Bootstrap functionality for modals
+        const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const referenceUrl = this.getAttribute('data-reference-url');
+                    document.getElementById('modalImage').src = referenceUrl;
                 });
             });
         });

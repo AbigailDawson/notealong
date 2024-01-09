@@ -23,7 +23,7 @@
       {% if user.is_authenticated %}
       <div class="d-flex flex-column">
         <a class="navbar-brand" href="/">Notealong</a>
-        <h4 class="nav-welcome m-0">Welcome back, <span style="font-weight: 800">{{ user.username }}</span>.</h4>
+        <h4 class="nav-welcome m-0">Welcome back, <span class="username-txt ms-1">{{ user.username }}</span></h4>
       </div>
       {% endif %}
 
@@ -62,5 +62,8 @@
   {% endblock %}
 </main>
 
+<footer class="text-center">
+  <p class="small-text"><a class="visual-link" href="https://github.com/Larzinew/notealong" target="_blank">Notealong</a> - <span>Team AbsoLuT3</span> - <a class="visual-link" href="https://github.com/AbigailDawson" target="_blank">Abigail</a> | <a class="visual-link" href="https://github.com/Larzinew" target="_blank">Larzine</a> | <a class="visual-link" href="https://github.com/tlmcbee" target="_blank">Tommie</a></p>
+</footer>
 </body>
 </html>
