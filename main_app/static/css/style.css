@@ -351,6 +351,7 @@ form * {
 
 .search-bar:focus {
   outline: 1px solid var(--blu-pop-bright);
+  border: 1px solid var(--blu-pop);
 }
 
 .search-dropdown {
