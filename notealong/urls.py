@@ -23,5 +23,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main_app.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    # path('static/ckeditor/ckeditor-init.js', serve, {'document_root': settings.STATIC_ROOT, 'path': 'ckeditor/ckeditor-init.js', 'show_indexes': True}),
 ]
