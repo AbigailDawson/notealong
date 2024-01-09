@@ -9,6 +9,8 @@
         {% if collection.user == user %}
             <a role="btn" class="btn btn-blu me-3" href="{% url 'notes_create' collection.id %}">New Note</a>
             <a role="btn" class="btn btn-blu" href="{% url 'references_create' collection.id %}">New Reference</a>
+        {% else %}
+            <a role="btn" class="btn btn-blu" href="">Save</a>
         {% endif %}
     </div>
     <div class="mt-4">
