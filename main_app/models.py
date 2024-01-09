@@ -50,6 +50,6 @@ class Collection(models.Model):
 
 class Profile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
-  collections_saved = models.ForeignKey(Collection, null=True, on_delete=models.CASCADE)
+  collections_saved = models.ManyToManyField(Collection, default='')
 
   

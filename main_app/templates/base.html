@@ -42,7 +42,7 @@
               <a class="nav-link" aria-current="page" href="{% url 'shared_collections' %}"><button class="nav-btn btn btn-lg">Browse Collections</button></a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" aria-current="page" href=""><button class="nav-btn btn btn-lg">Saved Collections</button></a>
+              <a class="nav-link" aria-current="page" href="{% url 'saved_collections_index' %}"><button class="nav-btn btn btn-lg">Saved Collections</button></a>
           </li>
           <li class="nav-item">
             <form action="{% url 'logout' %}" method="POST">
