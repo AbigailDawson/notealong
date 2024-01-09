@@ -14,16 +14,23 @@
 {% endblock %}
 {% block right %}
 <div class="d-flex flex-column">
-    <h2 class="collection-detail-title">{{ collection.name }}</h2>
+    <h2 class="collection-detail-title" id="top">{{ collection.name }}</h2>
     <p class="collection-detail-desc">{{ collection.description }}</p>
-    {% if collection.user == user %}
-        <div class="d-flex">
-            <a role="btn" class="btn btn-blu me-3" href="{% url 'notes_create' collection.id %}">New Note</a>
-            <a role="btn" class="btn btn-blu" href="{% url 'references_create' collection.id %}">New Reference</a>
-        </div>
+    <!-- add conditonal to only show this if the user hasn't already saved the collection, consider changing to 'remove from saved' if it is -->
+    {% if collection.user != user %}
+    <div class="d-flex align-items-center mb-4">
+        <a role="btn" class="btn btn-blu" style="width: 20%" href="">Save</a>
+        <p class="small mb-0 ms-2"><i>Save this collection to easily access it later.</i></p>
+    </div>
     {% endif %}
+
+    <a class="visual-link" href="#references">Jump to References</a>
+
     <div class="mt-4">
-        <h4 class="collection-detail-title mb-3">Notes</h4>
+        <h4 class="collection-detail-title mb-3" id="notes">Notes</h4>
+        {% if collection.user == user %}
+            <a role="btn" class="btn btn-blu me-3 mb-3" href="{% url 'notes_create' collection.id %}">New Note</a>
+        {% endif %}
         
         {% if collection.notes.count %}
             {% for note in collection.notes.all %}
@@ -33,22 +40,75 @@
                     {{ note.content }}
                     {% endautoescape %}
                 </div>
+                <div class="d-flex justify-content-end">
+                    {% if collection.user == user %}
+                        <a href="{% url 'notes_update' collection.id note.id %}"><i class="bi bi-pencil-square"></i></a>
+                    {% endif %}
+                </div>
             </div>
                 
             {% endfor %}
         {% else %}
-            <p class="mt-2">No notes have been added to this collection.</p>
+            <p class="collection-detail-desc mt-2">No notes have been added to this collection.</p>
         {% endif %}
     </div>
     <div class="mt-4">
-        <h4 class="collection-detail-title mb-3">References</h4>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h4 class="collection-detail-title" id="references">References</h4>
+            <a class="visual-link me-3" href="#top">Back to Top</a>
+        </div>
+        {% if collection.user == user %}
+        <a role="btn" class="btn btn-blu" href="{% url 'references_create' collection.id %}">New Reference</a>
+    {% endif %}
+    <div class="col-content-container ref-container row px-4 mt-4">
         {% if collection.references.count %}
             {% for reference in collection.references.all %}
-            <div class="card my-2 p-3">
-                <p class="mt-2">{{ reference.name }} ({{ reference.get_type_display }})</p>
-                <p class="mt-2">{{ reference.url }}</p>
+            <div class="col-12 col-md-4">
+                <div class="ref-card card my-2 p-3">
+                    <p class="mt-2" style="font-size: 14px;">{{ reference.name }} ({{ reference.get_type_display }})</p>
+                    {% if reference.type == 'I' %}
+                    <button type="button" class="btn btn-blu-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-reference-url="{{ reference.url }}">
+                        <img src="{{ reference.url }}" width="100%">
+                    </button>
+                    {% else %}
+                    <a role="btn" class="btn btn-blu" href="{{ reference.url }}" target="_blank">Open</a>
+                    {% endif %}
+                {% if collection.user == user %}
+                    <div class="d-flex justify-content-end">
+                    <a href="{% url 'references_update' collection.id reference.id %}"><i class="bi bi-pencil-square"></i></a>
+                {% endif %}
+                </div>
             </div>
+        </div>
             {% endfor %}
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImage" width="480px">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const modal = new bootstrap.Modal(document.getElementById('exampleModal')); // grab the modal (modal refers to an instance of the bootstrap.Modal class)
+            document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function (button) { // grab all the buttons to open the modals 
+                button.addEventListener('click', function () { // add evt listeners to the buttons
+                    const referenceUrl = this.getAttribute('data-reference-url'); // create variable to store the data-reference-url
+                    document.getElementById('modalImage').src = referenceUrl; // grab the modalImage element and update its src attribute to equal the referenceUrl stored above
+                    modal.show(); // part of built-in Bootstrap functionality for modals
+                });
+            });
+        });
+    </script>
         {% else %}
             <p class="collection-detail-desc mt-2">No references have been added to this collection.</p>
         {% endif %}
