@@ -1,5 +1,4 @@
 from django.forms import ModelForm, Textarea
-# from ckeditor.widgets import CKEditorWidget
 from .models import Reference, Collection, Note
 from tinymce.widgets import TinyMCE
 

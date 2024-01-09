@@ -169,7 +169,11 @@ STATIC_ROOT = 'main_app/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/collections'
+<<<<<<< HEAD
 LOGOUT_REDIRECT_URL = '/accounts/login'
 
 import django_on_heroku
 django_on_heroku.settings(locals())
+=======
+LOGOUT_REDIRECT_URL = '/'
+>>>>>>> c0424b4c422e6c5809ecd00eba293292f9e20035

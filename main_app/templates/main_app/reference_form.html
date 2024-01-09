@@ -22,8 +22,8 @@
         <button type="submit" class="btn btn-link p-0">Remove from Collection</button>
       </form>
       <p class="small-text mt-2"><b>Warning: </b>This reference will be removed from {{ collection.name }}.</p>
-      <a class="delete-link mt-3" href="{% url 'references_delete' collection.id reference.id %}">Delete Reference</a>
-      <p class="small-text mt-2"><b>Warning: </b>This action cannot be undone.</p>
+      <a class="btn btn-red mt-3" href="{% url 'references_delete' collection.id reference.id %}">Delete Reference</a>
+      <p class="small-text delete-link mt-2"><b>Warning: </b>This action cannot be undone.</p>
     {% endif %}
     
   </div>

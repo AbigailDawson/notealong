@@ -58,6 +58,15 @@ h1, h2, h3, h4, h5 {
 
 /*  ====  NAV  ====  */
 
+.username-txt {
+  font-weight: 800;
+  background-color: white;
+  color: var(--blu-pop-med);
+  border-radius: 8px;
+  padding: 2px 8px;
+  box-shadow: 2px 3px 6px -1px rgba(0,0,0,0.2);
+}
+
 .navbar {
   height: 8vh;
   background-color: var(--sky-blu);
@@ -148,6 +157,7 @@ nav.stroke ul li a:hover:after {
 }
 
 .btn-red {
+  width: 150px;
   font-size: 14px;
   border: 1px solid var(--btn-red-drk);
   outline: none;
@@ -157,6 +167,7 @@ nav.stroke ul li a:hover:after {
 }
 
 .btn-red:hover {
+  background-color: white;
   border: 1px solid var(--btn-red);
   color: var(--text);
   transform: scale(1.05);
@@ -176,6 +187,7 @@ nav.stroke ul li a:hover:after {
 
 .edit-icon-btn {
   font-size: 20px;
+  color: var(--blu-pop-med);
 }
 
 .edit-icon-btn:hover {
@@ -284,10 +296,9 @@ form * {
   background-color: white;
   border-radius: 30px;
   height: 80vh;
-  margin-bottom: 5vh;
+  margin-bottom: 2vh;
   padding-top: 20px;
   box-shadow: 2px 6px 12px -1px rgba(0,0,0,0.2);
-
 }
 
 .container-title {
