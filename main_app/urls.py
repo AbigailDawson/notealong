@@ -23,9 +23,10 @@ urlpatterns = [
     path('collections/<int:collection_id>/references/<int:pk>/update/', views.ReferenceUpdate.as_view(), name='references_update'),
     path('collections/<int:collection_id>/references/<int:pk>/delete/',views.ReferenceDelete.as_view(), name='references_delete'),
     path('shared-collections/', views.shared_collections_index, name='shared_collections'),
-    path('shared-collections/<int:collection_id>/', views.shared_collections_detail, name="shared_collections_detail"),
+    path('shared-collections/<int:collection_id>/', views.shared_collections_detail, name='shared_collections_detail'),
     path('search/', views.SearchResults.as_view(), name='search_results'),
     path('search/<int:collection_id>/', views.search_results_detail, name="search_results_detail"),
     path('saved-collections/', views.saved_collections_index, name='saved_collections_index'),
-    # path('saved-collections/<int:collection_id>/', views.saved_collections_detail, name='saved_collections_detail'),
+    path('saved-collections/<int:collection_id>/', views.saved_collections_detail, name='saved_collections_detail'),
+    path('saved-collections/<int:collection_id>/add', views.saved_collections_add, name='saved_collections_add')
 ]
