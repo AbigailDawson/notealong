@@ -5,22 +5,25 @@
     {% if object %}
       <h4 class="collection-detail-title">Edit <span style="color: var(--blu-pop-med)">{{ object.name }}</span></h4>
       {% else %}
-        <h4 class="collection-detail-title mb-3">Create Reference</h4>
+        <h4 class="collection-detail-title mb-5">Create Reference</h4>
     {% endif %}
-    <form action="" enctype="multipart/form-data" method="POST">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="file" name="url">
-      <button class="btn btn-outline-secondary btn-md" type="submit">Submit!</button>
-    </form>
+      <form action="" enctype="multipart/form-data" method="POST">
+        <div class="d-flex flex-column mb-3">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="file" name="url">
+          <button class="btn btn-blu mt-3 mb-3" type="submit" style="width: 50%">Submit</button>
+        </div>
+      </form>
+
     {% if object %}
-      <a class="delete-link mt-4" href="{% url 'references_delete' collection.id reference.id %}">Delete Reference</a>
-      <p class="small-text mt-2"><b>Warning: </b>This action cannot be undone.</p>
       <form action="{% url 'unassoc_ref' collection.id reference.id %}" method="POST">
         {% csrf_token %}
-        <button type="submit" class="btn">Remove from Collection</button>
+        <button type="submit" class="btn btn-link p-0">Remove from Collection</button>
       </form>
       <p class="small-text mt-2"><b>Warning: </b>This reference will be removed from {{ collection.name }}.</p>
+      <a class="delete-link mt-3" href="{% url 'references_delete' collection.id reference.id %}">Delete Reference</a>
+      <p class="small-text mt-2"><b>Warning: </b>This action cannot be undone.</p>
     {% endif %}
     
   </div>

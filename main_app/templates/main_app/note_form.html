@@ -9,9 +9,11 @@
         <h4 class="mb-3">Create Note</h4>
     {% endif %}
     <form action="" method="POST">
-      {% csrf_token %}
-      {{ form.as_p }} 
-      <button class="btn btn-outline-secondary btn-md" type="submit">Submit!</button>
+      <div class="d-flex flex-column mb-3">
+        {% csrf_token %}
+        {{ form.as_p }} 
+        <button class="btn btn-blu mt-3 mb-3" type="submit" style="width: 50%">Submit</button>
+      </div>
     </form>
     {% if object %}
       <a class="delete-link mt-4" href="{% url 'notes_delete' collection.id note.id %}">Delete Note</a>

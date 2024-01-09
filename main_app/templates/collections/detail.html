@@ -69,11 +69,11 @@
                         <img src="{{ reference.url }}" width="100%">
                     </button>
                     {% else %}
-                    <a role="btn" class="btn btn-blu" href="{{ reference.url }}" target="_blank">Open</a>
+                    <a role="btn" class="btn btn-blu" href="{{ reference.url }}">Open</a>
                     {% endif %}
                     <div class="d-flex justify-content-end">
                         {% if collection.user == user %}
-                            <a href="{% url 'references_update' collection.id reference.id %}" target="_blank"><i class="bi bi-pencil-square"></i></a>
+                            <a href="{% url 'references_update' collection.id reference.id %}"><i class="bi bi-pencil-square"></i></a>
                         {% endif %}
                     </div>
                 </div>

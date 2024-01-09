@@ -160,6 +160,15 @@ nav.stroke ul li a:hover:after {
   transform: scale(1.05);
 }
 
+.btn-link {
+  border: none;
+  text-decoration: none;
+  color: var(--blu-pop-med)
+}
+
+.btn-link:hover {
+  color: var(--blu-pop-bright)
+}
 
 .search-btn {
   border: none;
