@@ -377,15 +377,15 @@ def search_results_detail(request, collection_id):
 def saved_collections_index(request):
 
   user_profile = Profile.objects.get(user=request.user)
-  collections_saved = user_profile.collections_saved.all().order_by('-date_created')[:5]
+  collections_saved = user_profile.collections_saved.all().order_by('-date_created')
   
   user = request.user
 
-  # sort_by = request.GET.get('sort_by', 'date_created')  # default to date_created
-  # if sort_by == 'date_created':
-  #   collections_saved = collections_saved.order_by('-date_created')
-  # elif sort_by == 'date_updated':
-  #   collections_saved = collections_saved.order_by('-date_updated')
+  sort_by = request.GET.get('sort_by', 'date_created')  # default to date_created
+  if sort_by == 'date_created':
+    collections_saved = collections_saved.order_by('-date_created')
+  elif sort_by == 'date_updated':
+    collections_saved = collections_saved.order_by('-date_updated')
 
   paginator = Paginator(collections_saved, 5)  # 5 collections per page
   page_number = request.GET.get('page')
@@ -395,7 +395,7 @@ def saved_collections_index(request):
     'collections_saved': page_obj, # pass in the paginated list
     'user': user,
     'page_obj': page_obj,
-    # 'sort_by': sort_by,
+    'sort_by': sort_by,
     })
 
 @login_required
@@ -430,4 +430,10 @@ def saved_collections_add(request, collection_id):
   
   return redirect('shared_collections_detail',collection_id=collection_id)
 
+def saved_collections_remove(request, collection_id):
+  user_profile = Profile.objects.get(user=request.user)
+  collection = Collection.objects.get(id=collection_id)
+  user_profile.collections_saved.remove(collection)
+  user_profile.save()
   
+  return redirect('shared_collections_detail',collection_id=collection_id)
