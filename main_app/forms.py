@@ -23,4 +23,4 @@ class NoteForm(ModelForm):
     class Meta:
         model = Note
         fields = '__all__'
-        widgets = {'content': TinyMCE(attrs={'cols': 20, 'rows': 10})}
+        widgets = {'content': TinyMCE(attrs={'cols': 20, 'rows': 16})}
