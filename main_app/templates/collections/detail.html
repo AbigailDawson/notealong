@@ -37,19 +37,22 @@
     </div>
     <div class="mt-4">
         <h4 class="collection-detail-title mb-3">References</h4>
+        <h2 class="collection-detail-desc">Add an existing reference to this collection using the dropdown below.</h2>
         <form  action="{% url 'assoc_ref' collection.id %}" method="POST">
             {% csrf_token %}
-            <select class="form-control form-control-md" name="selected_ref">
-                <option value="">-- Select</option>
-                {% if excluded_references.count %}
-                    {% for reference in excluded_references.all %}
-                        <option value="{{ reference.id }}">{{ reference.name }}</option>
-                    {% endfor %}
-                {% else %}
-                    <option>No refererences available to add</option>
-                {% endif %}
-            </select>
-            <button type="submit" class="btn mt-4 w-100">Add Reference</button> 
+            <div class="d-flex mb-3">
+                <select class="dropdown me-2" name="selected_ref">
+                    <option value="">-- Select</option>
+                    {% if excluded_references.count %}
+                        {% for reference in excluded_references.all %}
+                            <option value="{{ reference.id }}">{{ reference.name }}</option>
+                        {% endfor %}
+                    {% else %}
+                        <option>No refererences available to add</option>
+                    {% endif %}
+                </select>
+                <button type="submit" class="btn btn-blu">Add</button> 
+            </div>
         </form>
         <div class="col-content-container ref-container row px-4">
         {% if collection.references.count %}
