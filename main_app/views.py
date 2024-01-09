@@ -17,7 +17,10 @@ import os
 # Create your views here.
 
 def home(request):
-    return render(request, 'home.html')
+  if request.user.is_authenticated:
+    return redirect('index')
+  else:
+    return redirect('login')
 
 def about(request):
     return render(request, 'about.html')
@@ -311,6 +314,9 @@ def shared_collections_detail(request, collection_id):
   shared_collections = Collection.objects.filter(shared=True)
   collection = Collection.objects.get(id=collection_id)
 
+  user_profile = Profile.objects.get(user=request.user)
+  collections_saved = user_profile.collections_saved.all()
+
   sort_by = request.GET.get('sort_by', 'date_created') 
   if sort_by == 'date_created':
     shared_collections = shared_collections.order_by('-date_created')
@@ -323,6 +329,8 @@ def shared_collections_detail(request, collection_id):
   return render(request, 'shared_collections/detail.html', {
     'collection': collection,
     'shared_collections': page_obj, 
+    'collections_saved': collections_saved, 
+    'user_profile': user_profile,
     'page_obj': page_obj,
     'sort_by': sort_by,
     })
@@ -420,6 +428,6 @@ def saved_collections_add(request, collection_id):
   user_profile.collections_saved.add(collection)
   user_profile.save()
   
-  return redirect('saved_collections_detail',collection_id=collection_id)
+  return redirect('shared_collections_detail',collection_id=collection_id)
 
   
