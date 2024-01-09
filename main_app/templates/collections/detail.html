@@ -3,8 +3,14 @@
 
 {% block right %}
 <div class="d-flex flex-column">
-    <h2 class="collection-detail-title" id="top">{{ collection.name }}</h2>
-    <p class="collection-detail-desc">{{ collection.description }}</p>
+    <h2 class="collection-detail-title me-4" id="top">{{ collection.name }}</h2>
+    <p class="collection-detail-desc mb-2">{{ collection.description }}</p>
+    {% if collection.shared == True %}
+        <p class="small-text mt-0" style="color: var(--blu-pop-med)">Shared</p>
+        {% else %}
+        <p class="small-text mt-0" style="color: var(--green)">Private</p>
+    {% endif %}
+
     <a class="visual-link" href="#references">Jump to References</a>
     
     <div class="mt-4">
