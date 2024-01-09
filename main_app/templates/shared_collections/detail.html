@@ -36,23 +36,57 @@
             <p class="collection-detail-desc mt-2">No notes have been added to this collection.</p>
         {% endif %}
     </div>
-    <div class="mt-4">
-        <h4 class="collection-detail-title mb-3">References</h4>
+    <div class="col-content-container ref-container row px-4">
         {% if collection.references.count %}
             {% for reference in collection.references.all %}
-            <div class="card my-2 p-3">
-                <p class="mt-2">{{ reference.name }} ({{ reference.get_type_display }})</p>
-                <p class="mt-2">{{ reference.url }}</p>
-            </div>
-            <div class="d-flex justify-content-end">
+            <div class="col-12 col-md-4">
+                <div class="ref-card card my-2 p-3">
+                    <p class="mt-2" style="font-size: 14px;">{{ reference.name }} ({{ reference.get_type_display }})</p>
+                    {% if reference.type == 'I' %}
+                    <button type="button" class="btn btn-blu-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-reference-url="{{ reference.url }}">
+                        <img src="{{ reference.url }}" width="100%">
+                    </button>
+                    {% else %}
+                    <a role="btn" class="btn btn-blu" href="{{ reference.url }}" target="_blank">Open</a>
+                    {% endif %}
                 {% if collection.user == user %}
+                    <div class="d-flex justify-content-end">
                     <a href="{% url 'references_update' collection.id reference.id %}"><i class="bi bi-pencil-square"></i></a>
                 {% endif %}
+                </div>
             </div>
+        </div>
             {% endfor %}
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImage" width="480px">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const modal = new bootstrap.Modal(document.getElementById('exampleModal')); // grab the modal (modal refers to an instance of the bootstrap.Modal class)
+            document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function (button) { // grab all the buttons to open the modals 
+                button.addEventListener('click', function () { // add evt listeners to the buttons
+                    const referenceUrl = this.getAttribute('data-reference-url'); // create variable to store the data-reference-url
+                    document.getElementById('modalImage').src = referenceUrl; // grab the modalImage element and update its src attribute to equal the referenceUrl stored above
+                    modal.show(); // part of built-in Bootstrap functionality for modals
+                });
+            });
+        });
+    </script>
         {% else %}
             <p class="collection-detail-desc mt-2">No references have been added to this collection.</p>
         {% endif %}
-    </div>
 </div>
 {% endblock %}
