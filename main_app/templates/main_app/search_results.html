@@ -27,18 +27,22 @@
         <div class="left-col col-12 col-md-4">
             {% block left %}
             <div class="d-flex flex-column">
+                {% if object_list.count %}
                 <p class="sort-links mt-2">Sort By: 
                     <a class="visual-link" href="?q={{ request.GET.q }}&type={{ request.GET.type }}&sort_by=date_created" {% if sort_by == 'date_created' %} class="selected" {% endif %}>Date Created</a> | 
                     <a class="visual-link"  href="?q={{ request.GET.q }}&type={{ request.GET.type }}&sort_by=date_updated" {% if sort_by == 'date_updated' %} class="selected" {% endif %}>Date Updated</a>
                 </p>
-                {% for collection in object_list %}
-                    <div class="collection-card card my-2 p-3" data-url="{% url 'search_results_detail' collection.id %}">
-                        <h4 class="card-title mb-2">{{ collection.name }}</h4>
-                        <p class="card-subtitle mb-1">Created by <b>{{ collection.user.username }}</b> on {{ collection.date_created|date:"M j, Y" }}</p>
-                        <p class="card-subtitle mb-2">Last updated: {{ collection.date_updated|date:"M j, Y" }}</p>
-                        <p class="card-text">{{ collection.description }}</p>
-                    </div>
-                {% endfor %}
+                    {% for collection in object_list %}
+                        <div class="collection-card card my-2 p-3" data-url="{% url 'search_results_detail' collection.id %}">
+                            <h4 class="card-title mb-2">{{ collection.name }}</h4>
+                            <p class="card-subtitle mb-1">Created by <b>{{ collection.user.username }}</b> on {{ collection.date_created|date:"M j, Y" }}</p>
+                            <p class="card-subtitle mb-2">Last updated: {{ collection.date_updated|date:"M j, Y" }}</p>
+                            <p class="card-text">{{ collection.description }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="container-desc ms-3 mt-4">No collections found.</p>
+                {% endif %}
 
                 <div class="pagination">
                     <span class="step-links">
