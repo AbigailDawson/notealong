@@ -170,20 +170,13 @@ nav.stroke ul li a:hover:after {
   color: var(--blu-pop-bright)
 }
 
-.search-btn {
-  border: none;
-  outline: none;
-}
-
 /*  ====  ICONS  ====  */
 
-.edit-icon-btn,
-.search-btn {
+.edit-icon-btn {
   font-size: 20px;
 }
 
-.edit-icon-btn:hover,
-.search-btn:hover {
+.edit-icon-btn:hover {
   color: var(--blu-pop-bright);
 }
 
@@ -311,11 +304,6 @@ form * {
   height: 34px;
 }
 
-.search-bar {
-  font-size: 14px;
-  height: 34px;
-}
-
 .sort-links {
   font-size: 12px;
 }
@@ -337,6 +325,53 @@ form * {
   height: calc(70vh - 40px);
   overflow-y: auto;
 }
+
+/*  ====  SEARCH  ====  */
+
+.search-bar {
+  border: 1px solid var(--blu-pop);
+  color: var(--blu-pop-med);
+  font-size: 14px;
+  height: 36px;
+  margin-bottom: 5px;
+}
+
+.search-bar:focus {
+  outline: 1px solid var(--blu-pop-bright);
+}
+
+.search-dropdown {
+  border: 1px solid var(--blu-pop);
+  color: var(--blu-pop-med);
+  border-radius: 5px;
+  padding: 0 10px;
+  margin-left: 20px;
+  font-size: 14px;
+  height: 36px;
+  min-width: 140px;
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.search-dropdown:focus {
+  outline: 1px solid var(--blu-pop-lt);
+}
+
+.search-icon {
+  color: var(--blu-pop-med);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.search-icon:hover {
+  color: var(--blu-pop-bright);
+}
+
+.search-btn {
+  outline: none;
+  border: none;
+}
+
 
 /*  ====  CARDS  ====  */
 
