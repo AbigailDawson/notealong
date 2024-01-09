@@ -13,7 +13,7 @@
     <!-- add conditonal to only show this if the user hasn't already saved the collection, consider changing to 'remove from saved' if it is -->
     {% if collection.user != user %}
     <div class="d-flex align-items-center mb-4">
-        <a role="btn" class="btn btn-blu" style="width: 20%" href="">Save</a>
+        <a role="btn" class="btn btn-blu" style="width: 20%" href="{% url 'saved_collections_add' collection.id %}">Save</a>
         <p class="small mb-0 ms-2"><i>Save this collection to easily access it later.</i></p>
     </div>
     {% endif %}

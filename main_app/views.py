@@ -390,30 +390,36 @@ def saved_collections_index(request):
     # 'sort_by': sort_by,
     })
 
-# @login_required
-# def collections_detail(request, collection_id):
-#   all_collections = Collection.objects.filter(user=request.user)
-#   collection = Collection.objects.get(id=collection_id)
-#   user_references = Reference.objects.filter(user=request.user)
-#   user = request.user
+@login_required
+def saved_collections_detail(request, collection_id):
+  user = request.user
+  user_profile = Profile.objects.get(user=request.user)
+  collections_saved = user_profile.collections_saved.all().order_by('-date_created')
+  collection = user_profile.collections_saved.get(id=collection_id)
 
-#   id_list = collection.references.all().values_list('id')
-#   excluded_references = user_references.exclude(id__in=id_list)
+  sort_by = request.GET.get('sort_by', 'date_created') 
+  if sort_by == 'date_created':
+    collections_saved = collections_saved.order_by('-date_created')
+  elif sort_by == 'date_updated':
+    collections_saved = collections_saved.order_by('-date_updated')
 
-#   sort_by = request.GET.get('sort_by', 'date_created') 
-#   if sort_by == 'date_created':
-#     all_collections = all_collections.order_by('-date_created')
-#   elif sort_by == 'date_updated':
-#     all_collections = all_collections.order_by('-date_updated')
+  paginator = Paginator(collections_saved, 5)
+  page_number = request.GET.get('page')
+  page_obj = paginator.get_page(page_number)
+  return render(request, 'saved_collections/detail.html', {
+    'collection': collection,
+    'saved_collections': page_obj, 
+    'user': user,
+    'page_obj': page_obj,
+    'sort_by': sort_by,
+    })
 
-#   paginator = Paginator(all_collections, 5)
-#   page_number = request.GET.get('page')
-#   page_obj = paginator.get_page(page_number)
-#   return render(request, 'collections/detail.html', {
-#     'collection': collection,
-#     'all_collections': page_obj, 
-#     'user': user,
-#     'page_obj': page_obj,
-#     'sort_by': sort_by,
-#     'excluded_references': excluded_references
-#     })
+def saved_collections_add(request, collection_id):
+  user_profile = Profile.objects.get(user=request.user)
+  collection = Collection.objects.get(id=collection_id)
+  user_profile.collections_saved.add(collection)
+  user_profile.save()
+  
+  return redirect('saved_collections_detail',collection_id=collection_id)
+
+  
