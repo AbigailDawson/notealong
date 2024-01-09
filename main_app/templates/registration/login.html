@@ -20,8 +20,9 @@
                         {% csrf_token %}
                         {{ form.as_p }}
                         <input type="hidden" name="next" value="{{ next }}">
-                        <button type="submit" class="btn btn-blu">Log In</button>
+                        <button type="submit" class="btn btn-blu mb-3">Log In</button>
                     </form>
+                    <a class="visual-link" href="{% url 'signup' %}">Sign Up</a>
                 </div>
             </div>
         </div>

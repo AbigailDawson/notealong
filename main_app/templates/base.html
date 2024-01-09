@@ -22,7 +22,7 @@
     <div class="container-fluid">
 
       <div class="d-flex flex-column">
-        <a class="navbar-brand" href="#">Notealong</a>
+        <a class="navbar-brand" href="/">Notealong</a>
         {% if user.is_authenticated %}
         <h4 class="nav-welcome m-0">Welcome back, <span style="font-weight: 800">{{ user.username }}</span>.</h4>
         {% endif %}
@@ -49,13 +49,6 @@
               {% csrf_token %}
               <button class="nav-btn btn btn-lg" type="submit">Log Out</button>
             </form>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{% url 'signup' %}"><button class="nav-btn btn btn-lg">Sign Up</button></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{% url 'login' %}"><button class="nav-btn btn btn-lg">Log In</button></a>
           </li>
           {% endif %}
         </ul>

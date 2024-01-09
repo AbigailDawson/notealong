@@ -17,7 +17,7 @@ import os
 # Create your views here.
 
 def home(request):
-    return render(request, 'home.html')
+    return redirect('index')
 
 def about(request):
     return render(request, 'about.html')
