@@ -46,7 +46,6 @@
         </div>
         {% if collection.user == user %}
         <a role="btn" class="btn btn-blu" href="{% url 'references_create' collection.id %}">New Reference</a>
-    {% endif %}
         <h2 class="collection-detail-desc mt-4">Add an existing reference to this collection using the dropdown below.</h2>
         <form  action="{% url 'assoc_ref' collection.id %}" method="POST">
             {% csrf_token %}
@@ -64,6 +63,7 @@
                 <button type="submit" class="btn btn-blu">Add</button> 
             </div>
         </form>
+        {% endif %}
         <div class="col-content-container ref-container row px-4">
         {% if collection.references.count %}
             {% for reference in collection.references.all %}
