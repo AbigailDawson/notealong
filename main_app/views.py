@@ -312,6 +312,11 @@ def shared_collections_index(request):
 def shared_collections_detail(request, collection_id):
   shared_collections = Collection.objects.filter(shared=True)
   collection = Collection.objects.get(id=collection_id)
+  user_references = Reference.objects.filter(user=request.user)
+  user = request.user
+
+  id_list = collection.references.all().values_list('id')
+  excluded_references = user_references.exclude(id__in=id_list)
 
   user_profile = Profile.objects.get(user=request.user)
   collections_saved = user_profile.collections_saved.all()
@@ -332,6 +337,8 @@ def shared_collections_detail(request, collection_id):
     'user_profile': user_profile,
     'page_obj': page_obj,
     'sort_by': sort_by,
+    'user': user,
+    'excluded_references': excluded_references
     })
 
 class SearchResults(LoginRequiredMixin, ListView):
