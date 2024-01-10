@@ -72,6 +72,16 @@
         </div>
         <div class="right-col col-12 col-md-8">
             {% block right %}
+            {% load static %}
+            <div class="welcome-right-container">
+                <div class="welcome-box">
+                <h2 class="text-center mt-4">Search for Collections</h2>
+                <p class="collection-desc text-center mt-4">Use the search bar to find collections shared by other users. Search by collection name or description keyword.</p>
+                <p class="collection-desc text-center">When you find a collection you like, save it to refer back to later by clicking <span style="color:var(--blu-pop-med)"><b>Save</b></span> on the collection detail page.</p>
+                <p class="collection-desc text-center">Not sure what to search for?<br>
+                    Try searching for <span style="color:var(--blu-pop-med)"><b>Django</b></span> or <span style="color:var(--blu-pop-med)"><b>JavaScript</b></span>!</p>
+                </div>
+            </div>
             {% endblock %}
         </div>
     </div>
