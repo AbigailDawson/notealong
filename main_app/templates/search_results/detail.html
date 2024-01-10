@@ -80,7 +80,24 @@
         </div>
         {% if collection.user == user %}
         <a role="btn" class="btn btn-blu" href="{% url 'references_create' collection.id %}">New Reference</a>
-    {% endif %}
+        <h2 class="collection-detail-desc mt-4">Add an existing reference to this collection using the dropdown below.</h2>
+        <form  action="{% url 'assoc_ref' collection.id %}" method="POST">
+            {% csrf_token %}
+            <div class="d-flex mb-3">
+                <select class="dropdown me-2 ms-0" name="selected_ref">
+                    <option value="">-- Select</option>
+                    {% if excluded_references.count %}
+                        {% for reference in excluded_references.all %}
+                            <option value="{{ reference.id }}">{{ reference.name }}</option>
+                        {% endfor %}
+                        {% else %}
+                        <option>No refererences available to add</option>
+                    {% endif %}
+                </select>
+                <button type="submit" class="btn btn-blu">Add</button> 
+            </div>
+        </form>
+        {% endif %}
     <div class="col-content-container ref-container row px-4 mt-4">
         {% if collection.references.count %}
             {% for reference in collection.references.all %}

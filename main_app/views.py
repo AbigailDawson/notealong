@@ -373,10 +373,16 @@ class SearchResults(LoginRequiredMixin, ListView):
 @login_required
 def search_results_detail(request, collection_id):
   collection = Collection.objects.get(id=collection_id)
+  user_references = Reference.objects.filter(user=request.user)
   user = request.user
+
+  id_list = collection.references.all().values_list('id')
+  excluded_references = user_references.exclude(id__in=id_list)
+  
   return render(request, 'search_results/detail.html', {
     'collection': collection,
-    'user': user
+    'user': user,
+    'excluded_references': excluded_references
   })
 
 @login_required
