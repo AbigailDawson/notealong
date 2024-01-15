@@ -1,5 +1,5 @@
 # <div align="center">Notealong</div>
-## <div align="center">[Live Site](https://notealong-fad09aab9558.herokuapp.com/)</div>
+## <div align="center">[Live Site](https://notealong-fad09aab9558.herokuapp.com/) | [Video Walkthrough](https://www.youtube.com/watch?v=ZjRPx1Q57Nk) </div>
 
 ![Notealong Splash Page](./main_app/static/images/splash.png)
 
